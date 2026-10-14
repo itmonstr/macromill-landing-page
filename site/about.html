@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>МакроМилл — Доставка готового питания</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1a1a1a; background: #fff; line-height: 1.7; }
+    .hero { background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%); color: #fff; padding: 48px 20px 40px; text-align: center; }
+    .hero h1 { font-size: 28px; margin-bottom: 8px; }
+    .hero p { font-size: 16px; opacity: 0.9; max-width: 480px; margin: 0 auto; }
+    .container { max-width: 720px; margin: 0 auto; padding: 32px 16px 60px; }
+    h2 { font-size: 20px; margin: 32px 0 16px; color: #1a1a1a; }
+    h3 { font-size: 17px; margin: 24px 0 10px; color: #22C55E; }
+    p, li { font-size: 14px; margin-bottom: 10px; }
+    ul { margin: 0 0 16px 20px; }
+    .section { margin-bottom: 32px; }
+
+    .programs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+    @media (max-width: 480px) { .programs { grid-template-columns: 1fr; } }
+    .program-card { background: #F0FDF4; border-radius: 16px; padding: 20px; }
+    .program-card .title { font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+    .program-card .kcal { color: #22C55E; font-weight: 600; font-size: 13px; }
+    .program-card .desc { font-size: 13px; color: #6B7280; margin-top: 6px; }
+
+    .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin: 16px 0; }
+    .dish-card { border-radius: 16px; overflow: hidden; border: 1px solid #E5E7EB; }
+    .dish-card img { width: 100%; height: 140px; object-fit: cover; }
+    .dish-info { padding: 12px; }
+    .dish-info .name { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+    .dish-info .meta { font-size: 12px; color: #6B7280; }
+    .dish-info .price { font-weight: 700; color: #22C55E; font-size: 15px; margin-top: 6px; }
+
+    .pricing-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+    .pricing-table th { background: #F0FDF4; color: #22C55E; font-weight: 600; padding: 10px 12px; text-align: left; }
+    .pricing-table td { padding: 10px 12px; border-bottom: 1px solid #E5E7EB; }
+    .pricing-table tr:last-child td { border-bottom: none; }
+
+    .delivery { background: #F9FAFB; border-radius: 16px; padding: 20px; margin: 16px 0; }
+    .delivery h3 { margin-top: 0; }
+
+    .cta { text-align: center; margin: 40px 0 20px; }
+    .cta a { display: inline-block; background: #22C55E; color: #fff; text-decoration: none; padding: 16px 40px; border-radius: 16px; font-size: 16px; font-weight: 600; }
+    .cta a:hover { background: #16A34A; }
+
+    .contacts { background: #F9FAFB; border-radius: 16px; padding: 20px; margin: 24px 0; }
+    .contacts p { margin-bottom: 6px; }
+    .footer { text-align: center; font-size: 12px; color: #6B7280; padding: 20px; border-top: 1px solid #E5E7EB; }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <h1>МакроМилл</h1>
+    <p>Доставка готового питания с индивидуальным подбором рациона по КБЖУ</p>
+  </div>
+
+  <div class="container">
+
+    <div class="section">
+      <h2>О сервисе</h2>
+      <p>МакроМилл — сервис доставки готового сбалансированного питания. Мы подбираем рацион под ваши цели: похудение, поддержание формы или набор массы. Каждое блюдо приготовлено из свежих продуктов с точным расчётом калорий, белков, жиров и углеводов.</p>
+      <ul>
+        <li>Индивидуальный подбор рациона по параметрам (рост, вес, возраст, цель)</li>
+        <li>Готовые блюда — не нужно готовить и считать калории</li>
+        <li>Доставка на дом или самовывоз</li>
+        <li>Работа с персональным тренером — тренер назначает план питания</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Программы питания</h2>
+      <div class="programs">
+        <div class="program-card">
+          <div class="title">Похудение</div>
+          <div class="kcal">~1 400 ккал/день</div>
+          <div class="desc">Дефицит калорий для комфортного снижения веса</div>
+        </div>
+        <div class="program-card">
+          <div class="title">Поддержание формы</div>
+          <div class="kcal">~1 800 ккал/день</div>
+          <div class="desc">Сбалансированный рацион для поддержания текущего веса</div>
+        </div>
+        <div class="program-card">
+          <div class="title">Рекомпозиция</div>
+          <div class="kcal">~2 200 ккал/день</div>
+          <div class="desc">Снижение жира и увеличение мышечной массы</div>
+        </div>
+        <div class="program-card">
+          <div class="title">Набор мышечной массы</div>
+          <div class="kcal">~2 600 ккал/день</div>
+          <div class="desc">Профицит калорий для роста мышц</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Завтраки</h2>
+      <div class="menu-grid">
+        <div class="dish-card">
+          <img src="/img/1.jpg" alt="Сырники с ягодным соусом">
+          <div class="dish-info">
+            <div class="name">Сырники с ягодным соусом</div>
+            <div class="meta">170 г · 350 ккал · Б25 Ж10 У36</div>
+            <div class="price">450 ₽</div>
+          </div>
+        </div>
+        <div class="dish-card">
+          <img src="/img/6.jpg" alt="Гречневые блинчики с творожным муссом">
+          <div class="dish-info">
+            <div class="name">Гречневые блинчики с творожным муссом</div>
+            <div class="meta">165 г · 346 ккал · Б20 Ж11 У42</div>
+            <div class="price">450 ₽</div>
+          </div>
+        </div>
+        <div class="dish-card">
+          <img src="/img/9.jpg" alt="Маффин с курицей и овощами">
+          <div class="dish-info">
+            <div class="name">Маффин с курицей и овощами</div>
+            <div class="meta">160 г · 347 ккал · Б27 Ж14 У27</div>
+            <div class="price">390 ₽</div>
+          </div>
+        </div>
+        <div class="dish-card">
+          <img src="/img/16.jpg" alt="Творожная запеканка с ягодами">
+          <div class="dish-info">
+            <div class="name">Творожная запеканка с ягодами</div>
+            <div class="meta">250 г · 400 ккал · Б28 Ж12 У42</div>
+            <div class="price">450 ₽</div>
+          </div>
+        </div>
+        <div class="dish-card">
+          <img src="/img/17.jpg" alt="Овсяная каша-конструктор">
+          <div class="dish-info">
+            <div class="name">Овсяная каша-конструктор</div>
+            <div class="meta">300 г · 490 ккал · Б18 Ж10 У72</div>
+            <div class="price">390 ₽</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Обеды</h2>
+      <div class="menu-grid">
+        <div class="dish-card">
+          <img src="/img/3.jpg" alt="Курица в сливочно-горчичном соусе с кускусом">
+          <div class="dish-info">
+            <div class="name">Курица в сливочно-горчичном соусе с кускусом</div>
+            <div class="meta">255 г · 428 ккал · Б35 Ж13 У40</div>
+            <div class="price">490 ₽</div>
+          </div>
+        </div>
+        <div class="dish-card">
+          <img src="/img/7.jpg" alt="Говядина с ореховым соусом и фузилли">
+          <div class="dish-info">
+            <div class="name">Говядина с ореховым соусом и фузилли</div>
+            <div class="meta">225 г · 425 ккал · Б29 Ж18 У35</div>
+            <div class="price">590 ₽</div>
+          </div>
+        </div>
+        <div class="dish-card">
+          <img src="/img/10.jpg" alt="Тёплый салат с киноа, брокколи и курицей">
+          <div class="dish-info">
+            <div class="name">Тёплый салат с киноа, брокколи и курицей</div>
+            <div class="meta">250 г · 406 ккал · Б30 Ж14 У38</div>
+            <div class="price">490 ₽</div>
+          </div>
+        </div>
+        <div class="dish-card">
+          <img src="/img/13.jpg" alt="Курица с гречкой и овощами">
+          <div class="dish-info">
+            <div class="name">Курица с гречкой и овощами</div>
+            <div class="meta">350 г · 480 ккал · Б37 Ж14 У42</div>
+            <div class="price">450 ₽</div>
+          </div>
+        </div>
+        <div class="dish-card">
+          <img src="/img/14.jpg" alt="Бифштекс говяжий с картофельным пюре">
+          <div class="dish-info">
+            <div class="name">Бифштекс говяжий с картофельным пюре</div>
+            <div class="meta">350 г · 480 ккал · Б35 Ж20 У32</div>
+            <div class="price">490 ₽</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Ужины</h2>
+      <div class="menu-grid">
+        <div class="dish-card">
+          <img src="/img/5.jpg" alt="Филе трески на пару с овощным рагу">
+          <div class="dish-info">
+            <div class="name">Филе трески на пару с овощным рагу</div>
+            <div class="meta">210 г · 306 ккал · Б20 Ж11 У30</div>
+            <div class="price">550 ₽</div>
+          </div>
+        </div>
+        <div class="dish-card">
+          <img src="/img/8.jpg" alt="Запеканка овощная с курицей">
+          <div class="dish-info">
+            <div class="name">Запеканка овощная с курицей</div>
+            <div class="meta">245 г · 363 ккал · Б26 Ж15 У33</div>
+            <div class="price">450 ₽</div>
+          </div>
+        </div>
+        <div class="dish-card">
+          <img src="/img/11.jpg" alt="Куриное бедро в кисло-сладком соусе с ананасом и булгуром">
+          <div class="dish-info">
+            <div class="name">Куриное бедро в кисло-сладком соусе с булгуром</div>
+            <div class="meta">205 г · 324 ккал · Б25 Ж12 У29</div>
+            <div class="price">450 ₽</div>
+          </div>
+        </div>
+        <div class="dish-card">
+          <img src="/img/15.jpg" alt="Белая рыба с рисом и овощами">
+          <div class="dish-info">
+            <div class="name">Белая рыба с рисом и овощами</div>
+            <div class="meta">350 г · 480 ккал · Б30 Ж10 У54</div>
+            <div class="price">490 ₽</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Перекусы</h2>
+      <div class="menu-grid">
+        <div class="dish-card">
+          <img src="/img/2.jpg" alt="Творожный чизкейк без выпечки">
+          <div class="dish-info">
+            <div class="name">Творожный чизкейк без выпечки</div>
+            <div class="meta">90 г · 150 ккал · Б11 Ж6 У13</div>
+            <div class="price">390 ₽</div>
+          </div>
+        </div>
+        <div class="dish-card">
+          <img src="/img/4.jpg" alt="Протеиновый брауни">
+          <div class="dish-info">
+            <div class="name">Протеиновый брауни</div>
+            <div class="meta">70 г · 154 ккал · Б10 Ж6 У14</div>
+            <div class="price">350 ₽</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Напитки</h2>
+      <div class="menu-grid">
+        <div class="dish-card">
+          <img src="/img/18.jpg" alt="Зелёная свежесть">
+          <div class="dish-info">
+            <div class="name">Зелёная свежесть</div>
+            <div class="meta">300 мл · 130 ккал · Б1.5 Ж0.2 У20</div>
+            <div class="price">250 ₽</div>
+          </div>
+        </div>
+        <div class="dish-card">
+          <img src="/img/19.jpg" alt="Печёное яблоко">
+          <div class="dish-info">
+            <div class="name">Печёное яблоко</div>
+            <div class="meta">300 мл · 170 ккал · Б2.5 Ж3.1 У32</div>
+            <div class="price">250 ₽</div>
+          </div>
+        </div>
+        <div class="dish-card">
+          <img src="/img/20.jpg" alt="Вишнёвый сад">
+          <div class="dish-info">
+            <div class="name">Вишнёвый сад</div>
+            <div class="meta">300 мл · 110 ккал · Б2.0 Ж0.5 У27</div>
+            <div class="price">250 ₽</div>
+          </div>
+        </div>
+        <div class="dish-card">
+          <img src="/img/21.jpg" alt="Цитрус и мята">
+          <div class="dish-info">
+            <div class="name">Цитрус и мята</div>
+            <div class="meta">300 мл · 130 ккал · Б3.3 Ж0.2 У30</div>
+            <div class="price">250 ₽</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Стоимость</h2>
+      <p>Цена зависит от выбранных блюд и количества дней. Скидка начисляется автоматически:</p>
+      <table class="pricing-table">
+        <tr><th>Тариф</th><th>Дней</th><th>Скидка</th></tr>
+        <tr><td>Пробный</td><td>1–2 дня</td><td>без скидки</td></tr>
+        <tr><td>Старт</td><td>3–4 дня</td><td>4%</td></tr>
+        <tr><td>Оптимум</td><td>5–7 дней</td><td>7%</td></tr>
+        <tr><td>PRO</td><td>8–11 дней</td><td>10%</td></tr>
+        <tr><td>MAX</td><td>12–15 дней</td><td>15%</td></tr>
+      </table>
+      <p>Средняя стоимость блюда: <strong>350–590 ₽</strong>. Дневной рацион (4 приёма пищи): от <strong>1 200 ₽/день</strong>.</p>
+    </div>
+
+    <div class="section">
+      <div class="delivery">
+        <h3>Доставка</h3>
+        <ul>
+          <li><strong>Доставка на дом</strong> — выбор даты и временного слота</li>
+          <li><strong>Самовывоз</strong> — из партнёрских фитнес-клубов</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Оплата</h2>
+      <p>Оплата заказа производится онлайн через безопасный платёжный сервис <strong>Робокасса</strong>. Принимаются банковские карты Visa, MasterCard, МИР, а также другие способы оплаты.</p>
+      <p>Все цены указаны в российских рублях (₽) и включают стоимость приготовления. Стоимость доставки рассчитывается отдельно при оформлении заказа.</p>
+    </div>
+
+    <div class="cta">
+      <a href="/">Перейти в приложение</a>
+    </div>
+
+    <div class="contacts">
+      <h3>Контакты</h3>
+      <p><strong>ИП Кожемяченко Алексей Олегович</strong></p>
+      <p>ИНН: 910302169371</p>
+      <p>ОГРНИП: 318920400011582</p>
+      <p>Телефон: <a href="tel:+79787425538">+7 (978) 742-55-38</a></p>
+      <p>Email: <a href="mailto:Kozhemyachenko.aleksej@mail.ru">Kozhemyachenko.aleksej@mail.ru</a></p>
+    </div>
+
+    <div class="footer">
+      <p>© 2026 МакроМилл. Все права защищены.</p>
+      <p style="margin-top: 6px;">
+        <a href="/agreement.html" style="color: #22C55E;">Пользовательское соглашение</a> ·
+        <a href="/oferta.html" style="color: #22C55E;">Публичная оферта</a>
+      </p>
+    </div>
+
+  </div>
+</body>
+</html>
