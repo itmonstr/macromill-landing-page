@@ -59,7 +59,7 @@ const readable = (date) => new Intl.DateTimeFormat("ru-RU", { day: "numeric", mo
 qs("#first-date").min = iso(earliest);
 
 function getValues() {
-  const ids = ["street", "unit", "entrance", "floor", "intercom", "courier-comment", "first-date", "customer-name", "customer-phone"];
+  const ids = ["street", "unit", "entrance", "floor", "intercom", "courier-comment", "first-date", "time-slot", "customer-name", "customer-phone"];
   return Object.fromEntries(ids.map((id) => [id, qs(`#${id}`).value.trim()]));
 }
 function persist() {
@@ -69,6 +69,7 @@ for (const [id, value] of Object.entries(saved.fields || {})) {
   const field = qs(`#${id}`);
   if (field) field.value = value;
 }
+if (!saved.fields?.["time-slot"]) qs("#time-slot").value = state.method === "pickup" ? "12:00 – 15:00" : "18:00 – 20:00";
 for (const promo of document.querySelectorAll(".promo-input")) promo.value = saved.promo || "";
 
 function setMethod(method) {
@@ -88,9 +89,11 @@ function updateDateNote() {
   if (Number.isNaN(date.getTime())) return;
   const finalDay = new Date(date);
   finalDay.setUTCDate(finalDay.getUTCDate() + Math.min(days, 3) - 1);
-  text("date-note", `Первое ${state.method === "pickup" ? "получение" : "доставка"} — ${readable(date)}. Первая партия питания: ${readable(date)}${finalDay.getTime() === date.getTime() ? "" : ` — ${readable(finalDay)}`}. Время и доступность даты подтвердит менеджер.`);
+  const firstEvent = state.method === "pickup" ? "Первое получение" : "Первая доставка";
+  text("date-note", `${firstEvent} — ${readable(date)}, ${qs("#time-slot").value}. Привезём питание на ${readable(date)}${finalDay.getTime() === date.getTime() ? "" : ` — ${readable(finalDay)}`}. Дату подтвердит менеджер.`);
 }
 qs("#first-date").addEventListener("change", updateDateNote);
+qs("#time-slot").addEventListener("change", () => { persist(); updateDateNote(); });
 for (const button of document.querySelectorAll("[data-method]")) button.addEventListener("click", updateDateNote);
 updateDateNote();
 qs("#checkout-form").addEventListener("input", persist);
@@ -118,7 +121,7 @@ qs("#checkout-form").addEventListener("submit", (event) => {
   const destination = state.method === "delivery"
     ? [values.street, values.unit, values.entrance && `подъезд ${values.entrance}`, values.floor && `этаж ${values.floor}`, values.intercom && `домофон ${values.intercom}`].filter(Boolean).join(", ")
     : "Самовывоз: Севастополь, пр. Октябрьской Революции, 61";
-  const lines = ["Заявка на рацион МакроМилл", "", `Линейка: ${plans[tier].label}`, `Рацион: ${goal}, ${kcal} ккал`, `Срок: ${days} ${dayWord(days)}`, `Стоимость питания: ${money(total)}`, `Получение: ${state.method === "delivery" ? "доставка" : "самовывоз"}`, `Адрес: ${destination}`, `Предпочтительная дата: ${values["first-date"]}`, `Имя: ${values["customer-name"]}`, `Телефон: ${values["customer-phone"]}`];
+  const lines = ["Заявка на рацион МакроМилл", "", `Линейка: ${plans[tier].label}`, `Рацион: ${goal}, ${kcal} ккал`, `Срок: ${days} ${dayWord(days)}`, `Стоимость питания: ${money(total)}`, `Получение: ${state.method === "delivery" ? "доставка" : "самовывоз"}`, `Адрес: ${destination}`, `Предпочтительная дата: ${values["first-date"]}`, `Предпочтительный интервал: ${values["time-slot"]}`, `Имя: ${values["customer-name"]}`, `Телефон: ${values["customer-phone"]}`];
   if (values["courier-comment"]) lines.push(`Комментарий курьеру: ${values["courier-comment"]}`);
   if (qs(".promo-input")?.value.trim()) lines.push(`Промокод для проверки: ${qs(".promo-input").value.trim()}`);
   lines.push("", "Пожалуйста, подтвердите дату и детали заказа.");

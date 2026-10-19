@@ -36,8 +36,9 @@
             <label>Домофон <input id="intercom" name="intercom" placeholder="Необязательно"></label>
             <label class="wide">Комментарий курьеру <textarea id="courier-comment" name="courierComment" rows="2" placeholder="Необязательно"></textarea></label>
           </div>
-          <div id="pickup-point" hidden><strong>Точка самовывоза</strong><p>Севастополь, пр. Октябрьской Революции, 61</p><p>Время выдачи подтвердит менеджер.</p></div>
+          <div id="pickup-point" hidden><strong>Точка самовывоза</strong><p>Севастополь, пр. Октябрьской Революции, 61</p><p>Интервалы выдачи: 09:00–12:00, 12:00–15:00, 15:00–18:00, 18:00–20:00 и 20:00–22:00.</p></div>
           <label class="date-field">Предпочтительная дата первого получения <input id="first-date" name="firstDate" type="date" required><small class="field-error" id="first-date-error"></small></label>
+          <label class="date-field">Удобное время первого получения <select id="time-slot" name="timeSlot"><option>09:00 – 12:00</option><option>12:00 – 15:00</option><option>15:00 – 18:00</option><option>18:00 – 20:00</option><option>20:00 – 22:00</option></select></label>
           <p id="date-note" class="date-note" aria-live="polite"></p>
         </section>
         <section class="checkout-card">
