@@ -23,7 +23,62 @@ function checkoutHref(tier, goal, duration, mealCount) {
   return `${base}checkout.html?${new URLSearchParams({ tier, goal, days: String(duration), meals: mealCount })}`;
 }
 
-function FoodCard({ entry, index }) {
+function generateAffordableMenuLikeApp(goal, totalDays, customKcal, excludedDishIds = []) {
+  const targets = { "Похудение": 1300, "Рекомпозиция": 1700, "Поддержание": 2100, "Набор массы": 2600 };
+  const targetKcal = Math.round(Number(customKcal)) || targets[goal] || 1700;
+  const slots = ["Завтрак", "Перекус", "Обед", "Полдник", "Ужин"];
+  const excluded = new Set(excludedDishIds.map(Number));
+  const pools = slots.map((slot) => affordableDishes.filter((dish) => dish.available !== false && !excluded.has(Number(dish.id)) && (dish.meal_slot || dish.category) === slot));
+  const uses = new Map();
+  const usedMenus = new Set();
+  const recent = [];
+  const required = new Set(["Завтрак", "Обед", "Ужин"]);
+  const result = [];
+  for (let day = 0; day < totalDays; day++) {
+    const idealCount = targetKcal <= 1400 ? 3 : targetKcal <= 1900 ? 4 : 5;
+    let states = new Map([["0:0", [{ kcal: 0, slotCount: 0, meals: [], score: 0 }]]]);
+    for (const [slotIndex, pool] of pools.entries()) {
+      const next = new Map();
+      const keepBest = (state) => {
+        const key = `${state.kcal}:${state.slotCount}`;
+        const alternatives = next.get(key) || [];
+        const menuKey = state.meals.map((meal) => `${meal.dishId}x${meal.qty}`).join("-");
+        const duplicate = alternatives.findIndex((item) => item.meals.map((meal) => `${meal.dishId}x${meal.qty}`).join("-") === menuKey);
+        if (duplicate >= 0 && alternatives[duplicate].score <= state.score) return;
+        if (duplicate >= 0) alternatives.splice(duplicate, 1);
+        alternatives.push(state);
+        alternatives.sort((a, b) => a.score - b.score);
+        if (alternatives.length > 16) alternatives.length = 16;
+        next.set(key, alternatives);
+      };
+      for (const group of states.values()) for (const state of group) {
+        if (!required.has(slots[slotIndex])) keepBest(state);
+        for (const dish of pool) {
+          const maxQty = Math.min(5, Math.floor((targetKcal + 100) / dish.base_kcal));
+          for (let qty = 1; qty <= maxQty; qty++) {
+            const kcal = state.kcal + dish.base_kcal * qty;
+            if (kcal > targetKcal + 100) continue;
+            const meal = { dishId: dish.id, meal: slots[slotIndex], name: dish.name, category: dish.category, image: dish.image || null, weight: dish.base_weight, kcal: dish.base_kcal, p: dish.base_p, f: dish.base_f, c: dish.base_c, qty, price: dish.price || 0 };
+            keepBest({ kcal, slotCount: state.slotCount + 1, meals: [...state.meals, meal], score: state.score + (uses.get(dish.id) || 0) ** 2 * 100 + (recent.includes(dish.id) ? 30 : 0) + (qty - 1) * 10 + Math.random() * 5 });
+          }
+        }
+      }
+      states = next;
+    }
+    const all = [...states.values()].flat();
+    const inRange = all.filter((state) => state.slotCount >= 3 && Math.abs(state.kcal - targetKcal) <= 100);
+    const candidates = inRange.length ? inRange : all.filter((state) => state.slotCount >= 3);
+    const selected = candidates.map((candidate) => ({ candidate, score: Math.abs(candidate.kcal - targetKcal) * 100000 + Math.abs(candidate.slotCount - idealCount) * 1000 + candidate.score + (usedMenus.has(candidate.meals.map((meal) => `${meal.dishId}x${meal.qty}`).join("-")) ? 12000000 : 0) + Math.random() * 30 })).sort((a, b) => a.score - b.score)[0]?.candidate || { kcal: 0, meals: [] };
+    const menuKey = selected.meals.map((meal) => `${meal.dishId}x${meal.qty}`).join("-");
+    for (const meal of selected.meals) { uses.set(meal.dishId, (uses.get(meal.dishId) || 0) + meal.qty); recent.push(meal.dishId); }
+    usedMenus.add(menuKey);
+    while (recent.length > pools.length * 2) recent.shift();
+    result.push({ day: day + 1, meals: selected.meals, targetKcal, portionScale: 1, kcalDeviation: selected.kcal - targetKcal });
+  }
+  return result;
+}
+
+function FoodCard({ entry, index, onReplace }) {
   const { dish, meal, qty = 1 } = entry;
   if (!dish) return null;
   return h("article", { className: "ml-food-card", key: `${dish.id}-${index}` },
@@ -36,7 +91,8 @@ function FoodCard({ entry, index }) {
       h("div", { className: "ml-macros" },
         h("span", null, `Б ${Math.round((dish.base_p || 0) * qty)} г`),
         h("span", null, `Ж ${Math.round((dish.base_f || 0) * qty)} г`),
-        h("span", null, `У ${Math.round((dish.base_c || 0) * qty)} г`))));
+        h("span", null, `У ${Math.round((dish.base_c || 0) * qty)} г`)),
+      h("button", { type: "button", className: "ml-food-replace", onClick: () => onReplace(index), "aria-label": `Заменить блюдо ${dish.name}` }, "↻ Заменить")));
 }
 
 function Landing() {
@@ -47,6 +103,10 @@ function Landing() {
   const [goal, setGoal] = React.useState(params.get("goal") || saved.goal || "Рекомпозиция");
   const [duration, setDuration] = React.useState(days.includes(Number(params.get("days") || saved.days)) ? Number(params.get("days") || saved.days) : 3);
   const [dayIndex, setDayIndex] = React.useState(0);
+  const [menuRevision, setMenuRevision] = React.useState(0);
+  const [menuEdits, setMenuEdits] = React.useState({});
+  const [swapTarget, setSwapTarget] = React.useState(null);
+  const [swapFilter, setSwapFilter] = React.useState(null);
   const goals = tier === "affordable" ? affordableGoals : premiumGoals;
   const selected = goals.find((item) => item[0] === goal) || goals[0];
   const selectedGoal = selected[0];
@@ -58,17 +118,31 @@ function Landing() {
   const total = subtotal - discountAmount;
   const daily = Math.round(total / duration);
   const menu = React.useMemo(() => tier === "affordable"
-    ? makeAffordableMenu(selectedGoal, 7, kcal, [127])
-    : makePremiumMenu(selectedGoal, 7, kcal, true), [tier, selectedGoal, kcal]);
+    ? generateAffordableMenuLikeApp(selectedGoal, 7, kcal, [127])
+    : makePremiumMenu(selectedGoal, 7, kcal, true), [tier, selectedGoal, kcal, menuRevision]);
   const dishes = tier === "affordable" ? affordableDishes : premiumDishes;
   const day = menu[dayIndex % menu.length];
-  const entries = (day?.meals || []).map((item) => ({
+  const generatedEntries = (day?.meals || []).map((item) => ({
     meal: item.meal, dish: dishes.find((dish) => dish.id === item.dishId), qty: item.qty || 1,
   }));
+  const entries = menuEdits[dayIndex] || generatedEntries;
   const mealCounts = menu.map((item) => item?.meals?.length || 0).filter(Boolean);
   const mealsPerDay = Math.min(...mealCounts) === Math.max(...mealCounts)
     ? String(mealCounts[0]) : `${Math.min(...mealCounts)}–${Math.max(...mealCounts)}`;
   const checkout = checkoutHref(tier, selectedGoal, duration, mealsPerDay);
+  const swapEntry = swapTarget ? entries[swapTarget.index] : null;
+  const swapTolerance = tier === "affordable" ? 150 : 100;
+  const activeSwapFilter = swapFilter || swapEntry?.dish?.category;
+  const previewKcal = entries.reduce((sum, entry) => sum + (entry.dish?.base_kcal || 0) * entry.qty, 0);
+  const swapDayTarget = day?.targetKcal || kcal;
+  const swapOtherKcal = previewKcal - (swapEntry?.dish?.base_kcal || 0) * (swapEntry?.qty || 1);
+  const existingSwapOptions = swapEntry ? entries.map((entry, index) => ({ entry, index })).filter(({ entry, index }) => index !== swapTarget.index && entry.dish?.id !== swapEntry.dish?.id)
+    .filter(({ entry }, index, list) => list.findIndex((item) => item.entry.dish?.id === entry.dish?.id) === index)
+    .map(({ entry }) => ({ dish: entry.dish, resultKcal: swapOtherKcal + entry.dish.base_kcal, existing: true })).filter((item) => item.dish && Math.abs(item.resultKcal - swapDayTarget) <= swapTolerance)
+    .sort((a, b) => Math.abs(a.resultKcal - swapDayTarget) - Math.abs(b.resultKcal - swapDayTarget)) : [];
+  const replacementSwapOptions = swapEntry?.dish ? dishes.filter((dish) => dish.available !== false && dish.category === activeSwapFilter && dish.id !== swapEntry.dish.id && !entries.some((entry, index) => index !== swapTarget.index && entry.dish?.id === dish.id))
+    .map((dish) => ({ dish, resultKcal: swapOtherKcal + dish.base_kcal, existing: false })).filter((item) => Math.abs(item.resultKcal - swapDayTarget) <= swapTolerance)
+    .sort((a, b) => Math.abs(a.resultKcal - swapDayTarget) - Math.abs(b.resultKcal - swapDayTarget)) : [];
 
   React.useEffect(() => {
     document.title = "МакроМилл — готовые рационы с доставкой по Севастополю";
@@ -83,12 +157,37 @@ function Landing() {
     setTier(next);
     setGoal(nextGoals.some((item) => item[0] === equivalent) ? equivalent : nextGoals[0][0]);
     setDayIndex(0);
+    setMenuEdits({});
+  }
+
+  function regenerateMenu() { setMenuEdits({}); setDayIndex(0); setMenuRevision((value) => value + 1); }
+
+  function pickReplacement(alternative, mergeExisting = false) {
+    if (!swapTarget) return;
+    const targetEntry = entries[swapTarget.index];
+    const pickedDish = alternative.dish || alternative;
+    const targetKcal = day?.targetKcal || kcal;
+    const targetPortionKcal = (targetEntry?.dish?.base_kcal || 0) * (targetEntry?.qty || 1);
+    const dayKcal = entries.reduce((sum, entry) => sum + (entry.dish?.base_kcal || 0) * entry.qty, 0);
+    const nextKcal = dayKcal - targetPortionKcal + pickedDish.base_kcal;
+    const tolerance = tier === "affordable" ? 150 : 100;
+    if (Math.abs(nextKcal - targetKcal) > tolerance) return;
+    let nextEntries;
+    if (mergeExisting) {
+      nextEntries = entries.filter((_, index) => index !== swapTarget.index).map((entry) => entry.dish.id === pickedDish.id ? { ...entry, qty: entry.qty + 1 } : entry);
+    } else {
+      const dish = pickedDish;
+      nextEntries = entries.map((entry, index) => index === swapTarget.index ? { ...entry, dish, qty: 1 } : entry);
+    }
+    setMenuEdits((previous) => ({ ...previous, [dayIndex]: nextEntries }));
+    setSwapTarget(null);
+    setSwapFilter(null);
   }
 
   const faq = [
     ["Можно заказать только один раз?", "Да. Выберите подходящий срок и оформите разовый заказ."],
     ["Нужно ли заполнять анкету?", "Нет. Для заявки нужны только имя и телефон. Рост, вес и другие параметры не спрашиваем."],
-    ["Можно ли заменить блюдо?", "Доступные замены и состав уточните у менеджера до оформления заказа."],
+    ["Можно ли заменить блюдо?", "Да. Нажмите «Заменить» в меню: выберите другое блюдо или добавьте порцию блюда из этого дня. Замены подбираются с учётом калорийности дня."],
     ["Где посмотреть состав и аллергены?", "Блюда и КБЖУ показаны в меню. При аллергии уточните состав у менеджера до заказа."],
     ["Когда привезут заказ?", "При оформлении выберите дату. Заказы до 14:00 обычно доступны на следующий день, после — через день. Дату подтвердит менеджер."],
     ["Почему привозим питание частями?", "Длительные заказы доставляем несколькими партиями, чтобы не хранить еду на всю неделю. Например, питание на четыре дня привезём сначала на три дня, затем на четвёртый. Даты согласуем при оформлении."],
@@ -130,7 +229,7 @@ function Landing() {
           h("div", { className: "ml-control-block" },
             h("div", { className: "ml-control-label" }, h("span", null, "02"), " Цель и калорийность"),
             h("div", { className: "ml-goal-grid" }, goals.map(([name, description, , calories]) =>
-              h("button", { type: "button", key: name, className: `ml-goal-option ${selectedGoal === name ? "selected" : ""}`, "aria-pressed": selectedGoal === name, onClick: () => { setGoal(name); setDayIndex(0); } },
+              h("button", { type: "button", key: name, className: `ml-goal-option ${selectedGoal === name ? "selected" : ""}`, "aria-pressed": selectedGoal === name, onClick: () => { setGoal(name); setDayIndex(0); setMenuEdits({}); } },
                 h("span", { className: "ml-goal-radio" }), h("span", { className: "ml-goal-text" }, h("b", null, name), h("small", null, `${calories} ккал/день`)),
                 h("span", { className: "ml-goal-price" }, rub(basePrice(calories, name, tier)), h("small", null, "/ день")),
                 h("span", { className: "ml-goal-description" }, description))))),
@@ -146,9 +245,18 @@ function Landing() {
               h("button", { type: "button", "aria-label": "Предыдущий день", onClick: () => setDayIndex((index) => (index + menu.length - 1) % menu.length) }, "‹"),
               h("span", null, weekdays[dayIndex % weekdays.length]),
               h("button", { type: "button", "aria-label": "Следующий день", onClick: () => setDayIndex((index) => (index + 1) % menu.length) }, "›"))),
-          h("p", { className: "ml-example-caption" }, "Пример дня. Состав меняется в зависимости от выбранной линейки и дня программы."),
-          h("div", { className: `ml-food-grid ${entries.length === 3 ? "ml-food-grid-three" : ""}` }, entries.map((entry, index) => h(FoodCard, { entry, index, key: `${dayIndex}-${index}` }))),
-          h("div", { className: "ml-menu-foot" }, h("span", null, "Итого за день"), h("b", null, `${entries.reduce((sum, entry) => sum + (entry.dish?.base_kcal || 0) * entry.qty, 0)} ккал`))),
+          h("div", { className: "ml-menu-actions" },
+            h("p", { className: "ml-example-caption" }, "Пример дня. Состав меняется в зависимости от выбранной линейки и дня программы."),
+            h("button", { type: "button", className: "ml-regenerate-button", onClick: regenerateMenu }, "↻ Перегенерировать рацион")),
+          h("div", { className: `ml-food-grid ${entries.length === 3 ? "ml-food-grid-three" : ""}` }, entries.map((entry, index) => h(FoodCard, { entry, index, key: `${dayIndex}-${index}-${entry.dish?.id}`, onReplace: (entryIndex) => { setSwapFilter(entries[entryIndex]?.dish?.category || null); setSwapTarget({ index: entryIndex }); } }))),
+          h("div", { className: "ml-menu-foot" }, h("span", null, "Итого за день"), h("b", null, `${previewKcal} ккал`))),
+        swapTarget && swapEntry && h("div", { className: "ml-swap-backdrop", onClick: () => { setSwapTarget(null); setSwapFilter(null); } },
+          h("section", { className: "ml-swap-dialog", role: "dialog", "aria-modal": "true", "aria-labelledby": "ml-swap-title", onClick: (event) => event.stopPropagation() },
+            h("div", { className: "ml-swap-heading" }, h("div", null, h("span", { className: "ml-eyebrow" }, "Подбор по калорийности"), h("h3", { id: "ml-swap-title" }, "Заменить блюдо"), h("p", null, `Вместо «${swapEntry.dish.name}» · день останется в пределах ±${swapTolerance} ккал от цели ${swapDayTarget} ккал.`)), h("button", { type: "button", onClick: () => { setSwapTarget(null); setSwapFilter(null); }, "aria-label": "Закрыть" }, "×")),
+            h("div", { className: "ml-swap-filters", role: "group", "aria-label": "Категория блюд" }, ["Завтрак", "Перекус", "Обед", "Полдник", "Ужин"].map((category) => h("button", { type: "button", key: category, className: activeSwapFilter === category ? "selected" : "", onClick: () => setSwapFilter(category) }, category))),
+            existingSwapOptions.length > 0 && h("div", { className: "ml-swap-group" }, h("h4", null, "Добавить порцию блюда из этого дня"), h("p", null, "Выбранное блюдо удалится, а к выбранной позиции добавится порция."), existingSwapOptions.map((option) => h("button", { type: "button", className: "ml-swap-option", key: `existing-${option.dish.id}`, onClick: () => pickReplacement(option, true) }, h("span", null, h("b", null, option.dish.name), h("small", null, `${option.dish.base_kcal} ккал · станет ${option.resultKcal} ккал за день`)), h("strong", null, "Добавить +1")))),
+            h("div", { className: "ml-swap-group" }, h("h4", null, "Заменить на другое блюдо"), h("p", null, "Показываем блюда той же категории, которые подходят по калориям."),
+              replacementSwapOptions.length ? replacementSwapOptions.map((option) => h("button", { type: "button", className: "ml-swap-option", key: `replacement-${option.dish.id}`, onClick: () => pickReplacement(option, false) }, h("span", null, h("b", null, option.dish.name), h("small", null, `${option.dish.base_kcal} ккал · станет ${option.resultKcal} ккал за день`)), h("strong", null, "Заменить"))) : h("p", { className: "ml-swap-empty" }, "Подходящих блюд этой категории нет. Попробуйте другой день или перегенерируйте рацион.")))),
         h("div", { className: "ml-order-summary" },
           h("div", { className: "ml-summary-rate" }, h("span", null, "Тариф"), h("b", null, rub(daily), h("small", null, " / день"))),
           discount > 0 && h("div", { className: "ml-summary-discount" }, `Скидка за срок ${Math.round(discount * 100)} %`),
