@@ -1,1 +1,196 @@
-import{a as e,n as t,r as n}from"./index-DnVk_jZq.js";import{F as r,I as i,L as a,M as o,N as s,P as c,R as l,_ as u,c as d,h as f,j as p,p as m,s as h,t as g,v as _,z as v}from"./ration-Dutl8qkK.js";var y=v(`arrow-down`,[[`path`,{d:`M12 5v14`,key:`s699le`}],[`path`,{d:`m19 12-7 7-7-7`,key:`1idqje`}]]),b=v(`arrow-right`,[[`path`,{d:`M5 12h14`,key:`1ays0h`}],[`path`,{d:`m12 5 7 7-7 7`,key:`xquz4c`}]]),x=v(`clock-3`,[[`circle`,{cx:`12`,cy:`12`,r:`10`,key:`1mglay`}],[`path`,{d:`M12 6v6h4`,key:`135r8i`}]]),S=v(`map-pin`,[[`path`,{d:`M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0`,key:`1r0f0z`}],[`circle`,{cx:`12`,cy:`10`,r:`3`,key:`ilqhr7`}]]),C=e(n(),1),w=t(),T=[1,3,5,7,14,30],E=[`Понедельник`,`Вторник`,`Среда`,`Четверг`,`Пятница`,`Суббота`,`Воскресенье`],D=`+79782348524`,O=e=>e?.startsWith(`/`)?`/macromill-landing-page/${e.slice(1)}`:e,k=e=>`${Number(e||0).toLocaleString(`ru-RU`)} ₽`;function A(e,t,n){return`https://macromill.ru/?${new URLSearchParams({app:`goal-order`,planTier:e,goal:t,days:String(n)}).toString()}`}function j({dish:e,meal:t,index:n,qty:r=1}){return e?(0,w.jsxs)(`article`,{className:`ml-food-card`,style:{"--card-order":n},children:[(0,w.jsxs)(`div`,{className:`ml-food-image-wrap`,children:[(0,w.jsx)(`img`,{src:O(e.image),alt:e.name,loading:`lazy`,className:`ml-food-image`}),(0,w.jsx)(`span`,{className:`ml-meal-tag`,children:t})]}),(0,w.jsxs)(`div`,{className:`ml-food-info`,children:[(0,w.jsx)(`h3`,{children:e.name}),(0,w.jsxs)(`p`,{children:[e.base_weight*r,` г`,r>1&&` · ${r} порц.`,` `,(0,w.jsx)(`span`,{children:`·`}),` `,e.base_kcal*r,` ккал`]}),(0,w.jsxs)(`div`,{className:`ml-macros`,children:[(0,w.jsxs)(`span`,{children:[`Б `,(0,w.jsxs)(`b`,{children:[Math.round((e.base_p||0)*r),` г`]})]}),(0,w.jsxs)(`span`,{children:[`Ж `,(0,w.jsxs)(`b`,{children:[Math.round((e.base_f||0)*r),` г`]})]}),(0,w.jsxs)(`span`,{children:[`У `,(0,w.jsxs)(`b`,{children:[Math.round((e.base_c||0)*r),` г`]})]})]})]})]}):null}function M(){let[e,t]=(0,C.useState)(`affordable`),[n,v]=(0,C.useState)(`Рекомпозиция`),[M,N]=(0,C.useState)(3),[P,F]=(0,C.useState)(0),[I,L]=(0,C.useState)(0);(0,C.useEffect)(()=>(document.title=`МакроМилл — готовые рационы с доставкой по Севастополю`,()=>{document.title=`МакроМилл`}),[]);let R=e===`affordable`?_:p,z=R.find(e=>e[0]===n)||R[0],B=z[0],V=z[3],H=d(V,B,e),U=h(M).pct||0,W=H*M-Math.round(H*M*U),G=Math.round(W/M),K=(0,C.useMemo)(()=>e===`affordable`?u(B,7,V,[127]):g(B,7,V,!0),[e,B,V]),q=(0,C.useMemo)(()=>{let t=K[P%K.length],n=e===`affordable`?f:m;return(t?.meals||[]).map(e=>({meal:e.meal,dish:n.find(t=>t.id===e.dishId),qty:e.qty||1}))},[e,P,K]),J=K.length||1,Y=e=>{t(e);let r=e===`affordable`?_:p,i=e===`premium`&&n===`Рекомпозиция`?`Поддержание / рекомпозиция`:e===`affordable`&&n===`Поддержание / рекомпозиция`?`Рекомпозиция`:e===`affordable`&&n===`Интенсивный набор`?`Набор массы`:n;v(r.some(e=>e[0]===i)?i:r[0][0]),F(0)};return(0,w.jsxs)(`main`,{className:`mm-landing`,children:[(0,w.jsxs)(`header`,{className:`ml-header`,children:[(0,w.jsx)(`a`,{className:`ml-brand`,href:`#top`,"aria-label":`МакроМилл — на главную`,children:(0,w.jsx)(`img`,{src:O(`/logo.png`),alt:`МакроМилл`})}),(0,w.jsxs)(`nav`,{className:`ml-nav`,"aria-label":`Главное меню`,children:[(0,w.jsx)(`a`,{href:`#menu`,children:`Рационы`}),(0,w.jsx)(`a`,{href:`#delivery`,children:`Доставка`}),(0,w.jsx)(`a`,{href:`#about`,children:`О нас`}),(0,w.jsx)(`a`,{href:`#faq`,children:`Вопросы`})]}),(0,w.jsxs)(`a`,{className:`ml-header-phone`,href:`tel:${D}`,children:[(0,w.jsx)(r,{size:17}),` Помощь`]})]}),(0,w.jsxs)(`section`,{className:`ml-hero`,id:`top`,style:{"--ml-hero-poster":`url("${O(`/video/macromill-hero-poster.jpg`)}")`},children:[(0,w.jsx)(`video`,{className:`ml-hero-video`,autoPlay:!0,muted:!0,loop:!0,playsInline:!0,preload:`metadata`,poster:O(`/video/macromill-hero-poster.jpg`),"aria-hidden":`true`,tabIndex:-1,children:(0,w.jsx)(`source`,{src:O(`/video/macromill-hero.mp4?v=3`),type:`video/mp4`})}),(0,w.jsxs)(`div`,{className:`ml-hero-copy`,children:[(0,w.jsxs)(`div`,{className:`ml-eyebrow`,children:[(0,w.jsx)(`span`,{}),` Готовое питание в Севастополе`]}),(0,w.jsxs)(`h1`,{children:[`Еда на день.`,(0,w.jsx)(`br`,{}),(0,w.jsx)(`em`,{children:`Уже приготовлена.`})]}),(0,w.jsx)(`p`,{className:`ml-hero-lead`,children:`Сбалансированные рационы с доставкой. Выбирайте блюда, смотрите состав и заранее знайте цену.`}),(0,w.jsxs)(`div`,{className:`ml-hero-proof`,children:[(0,w.jsxs)(`div`,{children:[(0,w.jsx)(`b`,{children:`от 990 ₽`}),(0,w.jsx)(`span`,{children:`за день`})]}),(0,w.jsx)(`i`,{}),(0,w.jsxs)(`div`,{children:[(0,w.jsx)(`b`,{children:`4–5 блюд`}),(0,w.jsx)(`span`,{children:`в рационе`})]}),(0,w.jsx)(`i`,{}),(0,w.jsxs)(`div`,{children:[(0,w.jsx)(`b`,{children:`Бесплатно`}),(0,w.jsx)(`span`,{children:`доставка по Севастополю`})]})]}),(0,w.jsxs)(`div`,{className:`ml-hero-actions`,children:[(0,w.jsxs)(`a`,{className:`ml-button ml-button-primary`,href:`#menu`,children:[`Выбрать рацион `,(0,w.jsx)(b,{size:18})]}),(0,w.jsx)(`a`,{className:`ml-text-link`,href:`#faq`,children:`Помогите выбрать`})]}),(0,w.jsxs)(`div`,{className:`ml-hero-note`,children:[(0,w.jsx)(l,{size:15}),` Без анкеты на рост и вес`]})]}),(0,w.jsx)(`aside`,{className:`ml-hero-visual`,"aria-label":`Как работает МакроМилл`,children:(0,w.jsxs)(`div`,{className:`ml-hero-story`,children:[(0,w.jsxs)(`span`,{className:`ml-hero-story-label`,children:[(0,w.jsx)(`i`,{}),` КАК ЭТО РАБОТАЕТ`]}),(0,w.jsx)(`h2`,{children:`Питание уже продумано`}),(0,w.jsx)(`p`,{className:`ml-hero-story-lead`,children:`Вы выбираете подходящий рацион — мы готовим и привозим блюда на день.`}),(0,w.jsxs)(`div`,{className:`ml-hero-story-steps`,children:[(0,w.jsxs)(`div`,{children:[(0,w.jsx)(`span`,{children:`01`}),(0,w.jsxs)(`p`,{children:[(0,w.jsx)(`b`,{children:`Выберите цель`}),(0,w.jsx)(`small`,{children:`Снижение веса, поддержание или набор массы`})]})]}),(0,w.jsxs)(`div`,{children:[(0,w.jsx)(`span`,{children:`02`}),(0,w.jsxs)(`p`,{children:[(0,w.jsx)(`b`,{children:`Посмотрите меню`}),(0,w.jsx)(`small`,{children:`Калорийность и состав известны заранее`})]})]}),(0,w.jsxs)(`div`,{children:[(0,w.jsx)(`span`,{children:`03`}),(0,w.jsxs)(`p`,{children:[(0,w.jsx)(`b`,{children:`Получите готовые блюда`}),(0,w.jsx)(`small`,{children:`Доставка по Севастополю или самовывоз`})]})]})]})]})}),(0,w.jsxs)(`a`,{className:`ml-scroll-hint`,href:`#why`,children:[(0,w.jsx)(y,{size:15}),` Узнать больше`]})]}),(0,w.jsxs)(`section`,{className:`ml-section ml-why`,id:`why`,children:[(0,w.jsxs)(`div`,{className:`ml-section-heading`,children:[(0,w.jsx)(`span`,{className:`ml-eyebrow`,children:`Питание без лишних хлопот`}),(0,w.jsx)(`h2`,{children:`Каждый день становится проще`}),(0,w.jsx)(`p`,{children:`Рацион уже собран. Вам остаётся выбрать блюда и удобное получение.`})]}),(0,w.jsxs)(`div`,{className:`ml-benefits`,children:[(0,w.jsxs)(`article`,{children:[(0,w.jsx)(`span`,{className:`ml-benefit-icon`,children:(0,w.jsx)(s,{})}),(0,w.jsx)(`h3`,{children:`Готовый план на день`}),(0,w.jsx)(`p`,{children:`Завтрак, обед и остальные приёмы пищи уже продуманы.`})]}),(0,w.jsxs)(`article`,{children:[(0,w.jsx)(`span`,{className:`ml-benefit-icon`,children:(0,w.jsx)(c,{})}),(0,w.jsx)(`h3`,{children:`Понятный состав`}),(0,w.jsx)(`p`,{children:`Блюда, вес и КБЖУ можно посмотреть до оформления заказа.`})]}),(0,w.jsxs)(`article`,{children:[(0,w.jsx)(`span`,{className:`ml-benefit-icon`,children:(0,w.jsx)(o,{})}),(0,w.jsx)(`h3`,{children:`Известная цена`}),(0,w.jsx)(`p`,{children:`Тариф и сумма первой партии показаны до перехода к оплате.`})]})]})]}),(0,w.jsxs)(`section`,{className:`ml-section ml-menu-section`,id:`menu`,children:[(0,w.jsxs)(`div`,{className:`ml-section-heading`,children:[(0,w.jsx)(`span`,{className:`ml-eyebrow`,children:`Меню и цены`}),(0,w.jsx)(`h2`,{children:`Выберите свой рацион`}),(0,w.jsx)(`p`,{children:`Сначала линейка, затем цель и срок — меню и тариф обновятся вместе.`})]}),(0,w.jsxs)(`div`,{className:`ml-order-builder`,children:[(0,w.jsxs)(`div`,{className:`ml-builder-controls`,children:[(0,w.jsxs)(`div`,{className:`ml-control-block`,children:[(0,w.jsxs)(`div`,{className:`ml-control-label`,children:[(0,w.jsx)(`span`,{children:`01`}),` Линейка питания`]}),(0,w.jsxs)(`div`,{className:`ml-line-switch`,role:`group`,"aria-label":`Линейка питания`,children:[(0,w.jsxs)(`button`,{className:e===`affordable`?`selected`:``,onClick:()=>Y(`affordable`),"aria-pressed":e===`affordable`,children:[(0,w.jsx)(`b`,{children:`Доступная`}),(0,w.jsx)(`small`,{children:`Новая линейка блюд`})]}),(0,w.jsxs)(`button`,{className:e===`premium`?`selected`:``,onClick:()=>Y(`premium`),"aria-pressed":e===`premium`,children:[(0,w.jsx)(`b`,{children:`Премиум`}),(0,w.jsx)(`small`,{children:`Основное меню`})]})]})]}),(0,w.jsxs)(`div`,{className:`ml-control-block`,children:[(0,w.jsxs)(`div`,{className:`ml-control-label`,children:[(0,w.jsx)(`span`,{children:`02`}),` Цель и калорийность`]}),(0,w.jsx)(`div`,{className:`ml-goal-grid`,children:R.map(([t,n,,r])=>{let i=d(r,t,e),a=B===t;return(0,w.jsxs)(`button`,{className:`ml-goal-option ${a?`selected`:``}`,onClick:()=>v(t),"aria-pressed":a,children:[(0,w.jsx)(`span`,{className:`ml-goal-radio`}),(0,w.jsxs)(`span`,{className:`ml-goal-text`,children:[(0,w.jsx)(`b`,{children:t}),(0,w.jsxs)(`small`,{children:[r,` ккал/день`]})]}),(0,w.jsxs)(`span`,{className:`ml-goal-price`,children:[k(i),(0,w.jsx)(`small`,{children:`/ день`})]}),a&&(0,w.jsx)(l,{className:`ml-goal-check`,size:17}),(0,w.jsx)(`span`,{className:`ml-goal-description`,children:n})]},t)})})]}),(0,w.jsxs)(`div`,{className:`ml-control-block ml-duration-block`,children:[(0,w.jsxs)(`div`,{className:`ml-control-label`,children:[(0,w.jsx)(`span`,{children:`03`}),` На сколько дней?`]}),(0,w.jsx)(`div`,{className:`ml-duration-options`,children:T.map(e=>(0,w.jsxs)(`button`,{onClick:()=>N(e),className:M===e?`selected`:``,"aria-pressed":M===e,children:[e,` `,e===1?`день`:`дней`]},e))}),(0,w.jsxs)(`p`,{className:`ml-payment-note`,children:[(0,w.jsx)(o,{size:16}),` При заказе от 4 дней питание выдаётся партиями до трёх дней.`]})]})]}),(0,w.jsxs)(`div`,{className:`ml-menu-preview`,children:[(0,w.jsxs)(`div`,{className:`ml-preview-head`,children:[(0,w.jsxs)(`div`,{children:[(0,w.jsx)(`span`,{className:`ml-eyebrow`,children:`Пример меню`}),(0,w.jsx)(`h3`,{children:`Что будет в рационе`})]}),(0,w.jsxs)(`div`,{className:`ml-day-controls`,children:[(0,w.jsx)(`button`,{"aria-label":`Предыдущий день`,onClick:()=>F(e=>(e+J-1)%J),children:`‹`}),(0,w.jsx)(`span`,{children:E[P%E.length]}),(0,w.jsx)(`button`,{"aria-label":`Следующий день`,onClick:()=>F(e=>(e+1)%J),children:`›`})]})]}),(0,w.jsx)(`p`,{className:`ml-example-caption`,children:`Пример дня. Состав меняется в зависимости от выбранной линейки и дня программы.`}),(0,w.jsx)(`div`,{className:`ml-food-grid ${q.length===3?`ml-food-grid-three`:``}`,children:q.map(({meal:t,dish:n,qty:r},i)=>(0,w.jsx)(j,{dish:n,meal:t,qty:r,index:i},`${e}-${P}-${n?.id}`))}),(0,w.jsxs)(`div`,{className:`ml-menu-foot`,children:[(0,w.jsx)(`span`,{children:`Итого за день`}),(0,w.jsxs)(`b`,{children:[q.reduce((e,t)=>e+(t.dish?.base_kcal||0)*t.qty,0),` ккал`]}),(0,w.jsxs)(`a`,{href:A(e,B,M),children:[`Посмотреть рацион в приложении `,(0,w.jsx)(b,{size:16})]})]})]}),(0,w.jsxs)(`div`,{className:`ml-order-summary`,children:[(0,w.jsxs)(`div`,{className:`ml-summary-rate`,children:[(0,w.jsx)(`span`,{children:`Тариф`}),(0,w.jsxs)(`b`,{children:[k(G),` `,(0,w.jsx)(`small`,{children:`/ день`})]})]}),U>0&&(0,w.jsxs)(`div`,{className:`ml-summary-discount`,children:[`Скидка за срок `,Math.round(U*100),`%`]}),(0,w.jsxs)(`div`,{className:`ml-summary-batch`,children:[(0,w.jsx)(`span`,{children:`Выбранный срок`}),(0,w.jsxs)(`b`,{children:[M,` `,M===1?`день`:`дней`]})]}),(0,w.jsx)(`p`,{children:`Тариф в день учитывает выбранную линейку, цель и скидку за срок.`}),(0,w.jsxs)(`a`,{className:`ml-button ml-button-primary ml-summary-button`,href:A(e,B,M),children:[`Перейти к оформлению `,(0,w.jsx)(b,{size:18})]})]})]})]}),(0,w.jsxs)(`section`,{className:`ml-section ml-delivery`,id:`delivery`,children:[(0,w.jsxs)(`div`,{className:`ml-section-heading ml-left-heading`,children:[(0,w.jsx)(`span`,{className:`ml-eyebrow`,children:`От заказа до стола`}),(0,w.jsx)(`h2`,{children:`Получить просто`}),(0,w.jsx)(`p`,{children:`Выберите удобный способ и дату — детали будут перед оплатой.`})]}),(0,w.jsxs)(`div`,{className:`ml-steps`,children:[(0,w.jsxs)(`article`,{children:[(0,w.jsx)(`span`,{className:`ml-step-number`,children:`01`}),(0,w.jsx)(`span`,{className:`ml-step-icon`,children:(0,w.jsx)(l,{})}),(0,w.jsx)(`h3`,{children:`Выберите рацион`}),(0,w.jsx)(`p`,{children:`Состав и стоимость можно проверить заранее.`})]}),(0,w.jsxs)(`article`,{children:[(0,w.jsx)(`span`,{className:`ml-step-number`,children:`02`}),(0,w.jsx)(`span`,{className:`ml-step-icon`,children:(0,w.jsx)(x,{})}),(0,w.jsx)(`h3`,{children:`Укажите дату`}),(0,w.jsx)(`p`,{children:`Заказы до 14:00 обычно доступны на следующий день, после — через день.`})]}),(0,w.jsxs)(`article`,{children:[(0,w.jsx)(`span`,{className:`ml-step-number`,children:`03`}),(0,w.jsx)(`span`,{className:`ml-step-icon`,children:(0,w.jsx)(i,{})}),(0,w.jsx)(`h3`,{children:`Получите питание`}),(0,w.jsx)(`p`,{children:`Выберите доставку или самовывоз в Севастополе.`})]})]}),(0,w.jsxs)(`div`,{className:`ml-delivery-address`,children:[(0,w.jsx)(S,{size:19}),(0,w.jsxs)(`span`,{children:[(0,w.jsx)(`b`,{children:`Самовывоз:`}),` Севастополь, пр. Октябрьской Революции, 61`]})]})]}),(0,w.jsxs)(`section`,{className:`ml-about`,id:`about`,children:[(0,w.jsxs)(`div`,{className:`ml-about-image`,children:[(0,w.jsx)(`img`,{src:O(`/img/8.jpg`),alt:`Готовое блюдо из рациона МакроМилл`,loading:`lazy`}),(0,w.jsx)(`span`,{children:`МакроМилл · Севастополь`})]}),(0,w.jsxs)(`div`,{className:`ml-about-copy`,children:[(0,w.jsx)(`span`,{className:`ml-eyebrow`,children:`Знакомьтесь, МакроМилл`}),(0,w.jsx)(`h2`,{children:`Питание, которое уже продумано за вас`}),(0,w.jsx)(`p`,{children:`Мы готовим рационы на каждый день, рассчитываем калорийность и собираем блюда так, чтобы вам не приходилось тратить вечер на покупки и готовку.`}),(0,w.jsxs)(`a`,{className:`ml-text-link`,href:`tel:${D}`,children:[`Задать вопрос менеджеру `,(0,w.jsx)(b,{size:16})]})]})]}),(0,w.jsxs)(`section`,{className:`ml-section ml-faq`,id:`faq`,children:[(0,w.jsxs)(`div`,{className:`ml-section-heading`,children:[(0,w.jsx)(`span`,{className:`ml-eyebrow`,children:`Подскажем до заказа`}),(0,w.jsx)(`h2`,{children:`Частые вопросы`})]}),(0,w.jsxs)(`div`,{className:`ml-faq-layout`,children:[(0,w.jsx)(`div`,{className:`ml-faq-list`,children:[[`Можно заказать только один раз?`,`Да. Можно выбрать подходящий срок и оформить разовый заказ.`],[`Нужно ли заполнять анкету?`,`Для заказа понадобится номер телефона. Рост, вес и другие параметры вводить не нужно.`],[`Можно ли заменить блюдо?`,`В приложении можно посмотреть доступные блюда и заменить позицию, если такая замена доступна для выбранного рациона.`],[`Где посмотреть состав и аллергены?`,`Состав блюд показывается при выборе рациона. Если у вас есть аллергия или непереносимость, уточните возможность приготовления у менеджера до оформления.`],[`Когда привезут заказ?`,`При оформлении вы выберете дату и способ получения. Заказы до 14:00 обычно доступны на следующий день, после 14:00 — через день.`]].map(([e,t],n)=>(0,w.jsxs)(`article`,{className:`ml-faq-item ${I===n?`open`:``}`,children:[(0,w.jsxs)(`button`,{onClick:()=>L(I===n?-1:n),"aria-expanded":I===n,children:[(0,w.jsx)(`span`,{children:e}),(0,w.jsx)(a,{size:19})]}),I===n&&(0,w.jsx)(`p`,{children:t})]},e))}),(0,w.jsxs)(`aside`,{className:`ml-help-card`,children:[(0,w.jsx)(`span`,{className:`ml-help-icon`,children:(0,w.jsx)(r,{})}),(0,w.jsx)(`h3`,{children:`Поможем выбрать`}),(0,w.jsx)(`p`,{children:`Расскажите, что важно для вас, — менеджер подскажет с чего начать.`}),(0,w.jsxs)(`a`,{className:`ml-button ml-button-dark`,href:`https://t.me/macromillman`,children:[`Написать нам `,(0,w.jsx)(b,{size:17})]}),(0,w.jsx)(`a`,{className:`ml-help-phone`,href:`tel:${D}`,children:D.replace(/^\+7(\d{3})(\d{3})(\d{2})(\d{2})$/,`+7 ($1) $2-$3-$4`)})]})]})]}),(0,w.jsxs)(`section`,{className:`ml-app-promo`,children:[(0,w.jsxs)(`div`,{className:`ml-app-copy`,children:[(0,w.jsx)(`span`,{className:`ml-eyebrow`,children:`Больше возможностей`}),(0,w.jsx)(`h2`,{children:`Рацион под вашу цель — в приложении`}),(0,w.jsx)(`p`,{children:`Рассчитайте ориентир по КБЖУ, выберите калорийность, изучите блюда и возвращайтесь к заказам в личном кабинете. Работает в браузере — скачивать ничего не нужно.`}),(0,w.jsxs)(`a`,{className:`ml-button ml-button-primary`,href:A(e,B,M),children:[`Открыть веб-приложение `,(0,w.jsx)(b,{size:18})]}),(0,w.jsx)(`small`,{children:`Для покупки готового рациона регистрация не обязательна.`})]}),(0,w.jsx)(`div`,{className:`ml-app-visual`,children:(0,w.jsx)(`img`,{className:`ml-app-photo`,src:O(`/img/landing-ration-seaside.jpg`),alt:`Готовые блюда МакроМилл у моря`,loading:`lazy`})})]}),(0,w.jsxs)(`footer`,{className:`ml-footer`,children:[(0,w.jsxs)(`div`,{className:`ml-footer-top`,children:[(0,w.jsx)(`img`,{src:O(`/logo.png`),alt:`МакроМилл`}),(0,w.jsxs)(`p`,{children:[`Готовые рационы с доставкой`,(0,w.jsx)(`br`,{}),`по Севастополю`]}),(0,w.jsxs)(`div`,{className:`ml-footer-contacts`,children:[(0,w.jsx)(`a`,{href:`tel:${D}`,children:D.replace(/^\+7(\d{3})(\d{3})(\d{2})(\d{2})$/,`+7 ($1) $2-$3-$4`)}),(0,w.jsx)(`a`,{href:`mailto:Kozhemyachenko.aleksej@mail.ru`,children:`Kozhemyachenko.aleksej@mail.ru`})]})]}),(0,w.jsxs)(`div`,{className:`ml-footer-bottom`,children:[(0,w.jsxs)(`span`,{children:[`© `,new Date().getFullYear(),` МакроМилл`]}),(0,w.jsxs)(`div`,{children:[(0,w.jsx)(`a`,{href:O(`/oferta.html`),children:`Публичная оферта`}),(0,w.jsx)(`a`,{href:O(`/agreement.html`),children:`Условия использования`}),(0,w.jsx)(`a`,{href:O(`/about.html`),children:`Реквизиты и контакты`})]})]})]}),(0,w.jsxs)(`div`,{className:`ml-mobile-bar`,children:[(0,w.jsxs)(`div`,{children:[(0,w.jsx)(`small`,{children:`Тариф в день`}),(0,w.jsx)(`b`,{children:k(G)})]}),(0,w.jsxs)(`a`,{href:A(e,B,M),children:[`Заказать `,(0,w.jsx)(b,{size:16})]})]})]})}export{M as default};
+import { a as interop, r as requireReact } from "./index-DnVk_jZq.js";
+import {
+  _ as makeAffordableMenu,
+  c as basePrice,
+  h as affordableDishes,
+  j as premiumGoals,
+  p as premiumDishes,
+  s as discountTier,
+  t as makePremiumMenu,
+  v as affordableGoals,
+} from "./ration-Dutl8qkK.js";
+
+const React = interop(requireReact(), 1);
+const h = React.createElement;
+const base = "/macromill-landing-page/";
+const phone = "+79798598711";
+const days = [1, 3, 5, 7, 14, 30];
+const weekdays = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
+const rub = (value) => `${Number(value).toLocaleString("ru-RU")} ₽`;
+const dayWord = (value) => value === 1 ? "день" : value >= 2 && value <= 4 ? "дня" : "дней";
+
+function checkoutHref(tier, goal, duration, mealCount) {
+  return `${base}checkout.html?${new URLSearchParams({ tier, goal, days: String(duration), meals: mealCount })}`;
+}
+
+function FoodCard({ entry, index }) {
+  const { dish, meal, qty = 1 } = entry;
+  if (!dish) return null;
+  return h("article", { className: "ml-food-card", key: `${dish.id}-${index}` },
+    h("div", { className: "ml-food-image-wrap" },
+      h("img", { src: `${base}${dish.image?.replace(/^\//, "")}`, alt: dish.name, loading: "lazy", className: "ml-food-image" }),
+      h("span", { className: "ml-meal-tag" }, meal)),
+    h("div", { className: "ml-food-info" },
+      h("h3", null, dish.name),
+      h("p", null, `${dish.base_weight * qty} г · ${dish.base_kcal * qty} ккал`),
+      h("div", { className: "ml-macros" },
+        h("span", null, `Б ${Math.round((dish.base_p || 0) * qty)} г`),
+        h("span", null, `Ж ${Math.round((dish.base_f || 0) * qty)} г`),
+        h("span", null, `У ${Math.round((dish.base_c || 0) * qty)} г`))));
+}
+
+function Landing() {
+  const saved = (() => { try { return JSON.parse(sessionStorage.getItem("mm-order-draft") || "{}"); } catch { return {}; } })();
+  const params = new URLSearchParams(location.search);
+  const initialTier = params.get("tier") || saved.tier || "affordable";
+  const [tier, setTier] = React.useState(initialTier === "premium" ? "premium" : "affordable");
+  const [goal, setGoal] = React.useState(params.get("goal") || saved.goal || "Рекомпозиция");
+  const [duration, setDuration] = React.useState(days.includes(Number(params.get("days") || saved.days)) ? Number(params.get("days") || saved.days) : 3);
+  const [dayIndex, setDayIndex] = React.useState(0);
+  const goals = tier === "affordable" ? affordableGoals : premiumGoals;
+  const selected = goals.find((item) => item[0] === goal) || goals[0];
+  const selectedGoal = selected[0];
+  const kcal = selected[3];
+  const dailyBase = basePrice(kcal, selectedGoal, tier);
+  const discount = discountTier(duration).pct || 0;
+  const subtotal = dailyBase * duration;
+  const discountAmount = Math.round(subtotal * discount);
+  const total = subtotal - discountAmount;
+  const daily = Math.round(total / duration);
+  const menu = React.useMemo(() => tier === "affordable"
+    ? makeAffordableMenu(selectedGoal, 7, kcal, [127])
+    : makePremiumMenu(selectedGoal, 7, kcal, true), [tier, selectedGoal, kcal]);
+  const dishes = tier === "affordable" ? affordableDishes : premiumDishes;
+  const day = menu[dayIndex % menu.length];
+  const entries = (day?.meals || []).map((item) => ({
+    meal: item.meal, dish: dishes.find((dish) => dish.id === item.dishId), qty: item.qty || 1,
+  }));
+  const mealCounts = menu.map((item) => item?.meals?.length || 0).filter(Boolean);
+  const mealsPerDay = Math.min(...mealCounts) === Math.max(...mealCounts)
+    ? String(mealCounts[0]) : `${Math.min(...mealCounts)}–${Math.max(...mealCounts)}`;
+  const checkout = checkoutHref(tier, selectedGoal, duration, mealsPerDay);
+
+  React.useEffect(() => {
+    document.title = "МакроМилл — готовые рационы с доставкой по Севастополю";
+    try { sessionStorage.setItem("mm-order-draft", JSON.stringify({ ...saved, tier, goal: selectedGoal, days: duration })); } catch { /* storage optional */ }
+  }, [tier, selectedGoal, duration]);
+
+  function changeTier(next) {
+    const nextGoals = next === "affordable" ? affordableGoals : premiumGoals;
+    const equivalent = selectedGoal === "Рекомпозиция" ? "Поддержание / рекомпозиция"
+      : selectedGoal === "Поддержание / рекомпозиция" ? "Рекомпозиция"
+      : selectedGoal === "Интенсивный набор" ? "Набор массы" : selectedGoal;
+    setTier(next);
+    setGoal(nextGoals.some((item) => item[0] === equivalent) ? equivalent : nextGoals[0][0]);
+    setDayIndex(0);
+  }
+
+  const faq = [
+    ["Можно заказать только один раз?", "Да. Выберите подходящий срок и оформите разовый заказ."],
+    ["Нужно ли заполнять анкету?", "Нет. Для заявки нужны только имя и телефон. Рост, вес и другие параметры не спрашиваем."],
+    ["Можно ли заменить блюдо?", "Доступные замены и состав уточните у менеджера до оформления заказа."],
+    ["Где посмотреть состав и аллергены?", "Блюда и КБЖУ показаны в меню. При аллергии уточните состав у менеджера до заказа."],
+    ["Когда привезут заказ?", "При оформлении выберите дату. Заказы до 14:00 обычно доступны на следующий день, после — через день. Дату подтвердит менеджер."],
+    ["Почему привозим питание частями?", "Длительные заказы доставляем несколькими партиями, чтобы не хранить еду на всю неделю. Например, питание на четыре дня привезём сначала на три дня, затем на четвёртый. Даты согласуем при оформлении."],
+    ["Как хранить питание?", "После получения уберите блюда в холодильник. Перед едой рекомендуем разогреть."],
+  ];
+
+  return h("main", { className: "mm-landing mm-landing-v2" },
+    h("header", { className: "ml-header" },
+      h("a", { className: "ml-brand", href: "#top", "aria-label": "МакроМилл — на главную" }, h("img", { src: `${base}logo.png`, alt: "МакроМилл" })),
+      h("nav", { className: "ml-nav", "aria-label": "Главное меню" },
+        h("a", { href: "#menu" }, "Рационы"), h("a", { href: "#delivery" }, "Доставка"),
+        h("a", { href: "#about" }, "О нас"), h("a", { href: "#faq" }, "Вопросы")),
+      h("a", { className: "ml-header-phone", href: `tel:${phone}` }, "+7 979 859 87 11")),
+
+    h("section", { className: "ml-hero", id: "top", style: { "--ml-hero-poster": `url('${base}video/macromill-hero-poster.jpg')` } },
+      h("video", { className: "ml-hero-video", autoPlay: true, muted: true, loop: true, playsInline: true, preload: "metadata", poster: `${base}video/macromill-hero-poster.jpg`, "aria-hidden": "true" },
+        h("source", { src: `${base}video/macromill-hero.mp4`, type: "video/mp4" })),
+      h("div", { className: "ml-hero-copy" },
+        h("h1", null, "Сбалансированное питание на каждый день", h("br"), h("em", null, "с доставкой по Севастополю")),
+        h("p", { className: "ml-hero-lead" }, "Завтраки, обеды, ужины и перекусы — готовим за вас. Разнообразное меню с рассчитанными КБЖУ, чтобы вкусно питаться и не тратить время на покупки и готовку."),
+        h("div", { className: "ml-hero-proof" },
+          h("div", null, h("b", null, "от 990 ₽"), h("span", null, "за день")), h("i"),
+          h("div", null, h("b", null, "4–6 блюд"), h("span", null, "в рационе")), h("i"),
+          h("div", null, h("b", null, "Бесплатно"), h("span", null, "доставка по Севастополю"))),
+        h("div", { className: "ml-hero-actions" },
+          h("a", { className: "ml-button ml-button-primary", href: "#menu" }, "Посмотреть меню и цены →"),
+          h("a", { className: "ml-text-link", href: "#faq" }, "Помогите выбрать")))),
+
+    h("section", { className: "ml-section ml-menu-section", id: "menu" },
+      h("div", { className: "ml-section-heading" }, h("span", { className: "ml-eyebrow" }, "Меню и цены"),
+        h("h2", null, "Выберите свой рацион"), h("p", null, "Посмотрите блюда, выберите подходящий вариант и количество дней.")),
+      h("div", { className: "ml-order-builder" },
+        h("div", { className: "ml-builder-controls" },
+          h("div", { className: "ml-control-block" },
+            h("div", { className: "ml-control-label" }, h("span", null, "01"), " Линейка питания"),
+            h("div", { className: "ml-line-switch", role: "group", "aria-label": "Линейка питания" },
+              h("button", { type: "button", className: tier === "affordable" ? "selected" : "", "aria-pressed": tier === "affordable", onClick: () => changeTier("affordable") }, h("b", null, "На каждый день"), h("small", null, "Новая линейка блюд")),
+              h("button", { type: "button", className: tier === "premium" ? "selected" : "", "aria-pressed": tier === "premium", onClick: () => changeTier("premium") }, h("b", null, "Премиум"), h("small", null, "Основное меню")))),
+          h("div", { className: "ml-control-block" },
+            h("div", { className: "ml-control-label" }, h("span", null, "02"), " Цель и калорийность"),
+            h("div", { className: "ml-goal-grid" }, goals.map(([name, description, , calories]) =>
+              h("button", { type: "button", key: name, className: `ml-goal-option ${selectedGoal === name ? "selected" : ""}`, "aria-pressed": selectedGoal === name, onClick: () => { setGoal(name); setDayIndex(0); } },
+                h("span", { className: "ml-goal-radio" }), h("span", { className: "ml-goal-text" }, h("b", null, name), h("small", null, `${calories} ккал/день`)),
+                h("span", { className: "ml-goal-price" }, rub(basePrice(calories, name, tier)), h("small", null, "/ день")),
+                h("span", { className: "ml-goal-description" }, description))))),
+          h("div", { className: "ml-control-block ml-duration-block" },
+            h("div", { className: "ml-control-label" }, h("span", null, "03"), " На сколько дней?"),
+            h("div", { className: "ml-duration-options" }, days.map((count) =>
+              h("button", { type: "button", key: count, className: duration === count ? "selected" : "", "aria-pressed": duration === count, onClick: () => setDuration(count) }, `${count} ${dayWord(count)}`))),
+            h("p", { className: "ml-payment-note" }, "При заказе от 4 дней питание выдаётся партиями до трёх дней."))),
+        h("div", { className: "ml-menu-preview" },
+          h("div", { className: "ml-preview-head" },
+            h("div", null, h("span", { className: "ml-eyebrow" }, "Пример меню"), h("h3", null, "Что будет в рационе")),
+            h("div", { className: "ml-day-controls" },
+              h("button", { type: "button", "aria-label": "Предыдущий день", onClick: () => setDayIndex((index) => (index + menu.length - 1) % menu.length) }, "‹"),
+              h("span", null, weekdays[dayIndex % weekdays.length]),
+              h("button", { type: "button", "aria-label": "Следующий день", onClick: () => setDayIndex((index) => (index + 1) % menu.length) }, "›"))),
+          h("p", { className: "ml-example-caption" }, "Пример дня. Состав меняется в зависимости от выбранной линейки и дня программы."),
+          h("div", { className: `ml-food-grid ${entries.length === 3 ? "ml-food-grid-three" : ""}` }, entries.map((entry, index) => h(FoodCard, { entry, index, key: `${dayIndex}-${index}` }))),
+          h("div", { className: "ml-menu-foot" }, h("span", null, "Итого за день"), h("b", null, `${entries.reduce((sum, entry) => sum + (entry.dish?.base_kcal || 0) * entry.qty, 0)} ккал`))),
+        h("div", { className: "ml-order-summary" },
+          h("div", { className: "ml-summary-rate" }, h("span", null, "Тариф"), h("b", null, rub(daily), h("small", null, " / день"))),
+          discount > 0 && h("div", { className: "ml-summary-discount" }, `Скидка за срок ${Math.round(discount * 100)} %`),
+          h("div", { className: "ml-summary-batch" }, h("span", null, "Выбранный срок"), h("b", null, `${duration} ${dayWord(duration)}`)),
+          h("p", null, `Питание на весь срок: ${rub(total)}${discountAmount ? `, экономия ${rub(discountAmount)}` : ""}.`),
+          h("a", { className: "ml-button ml-button-primary ml-summary-button", href: checkout }, "Оформить заказ →")))),
+
+    h("section", { className: "ml-section ml-delivery", id: "delivery" },
+      h("div", { className: "ml-section-heading ml-left-heading" }, h("h2", null, "Доставка и самовывоз")),
+      h("div", { className: "ml-delivery-grid" },
+        h("article", null, h("h3", null, "Доставка"),
+          h("p", null, "Бесплатно доставляем в любой район Севастополя."),
+          h("p", null, "Заказы до 14:00 обычно привозим на следующий день, после — через день."),
+          h("p", null, "Нам нужно время на приготовление и комплектацию вашего рациона. Точную дату согласуем при оформлении.")),
+        h("article", null, h("h3", null, "Самовывоз"),
+          h("p", null, "Севастополь, пр. Октябрьской Революции, 61."),
+          h("p", null, "Дату и время получения подтвердит менеджер.")))),
+
+    h("section", { className: "ml-about", id: "about" },
+      h("div", { className: "ml-about-image" }, h("img", { src: `${base}img/8.jpg`, alt: "Готовое блюдо из рациона МакроМилл", loading: "lazy" }), h("span", null, "МакроМилл · Севастополь")),
+      h("div", { className: "ml-about-copy" }, h("span", { className: "ml-eyebrow" }, "Знакомьтесь, МакроМилл"),
+        h("h2", null, "Готовим для вас в Севастополе"),
+        h("p", null, "Мы — команда, которая готовит и доставляет готовые рационы на каждый день. Продумываем меню, рассчитываем КБЖУ и берём готовку на себя — чтобы вы могли нормально питаться и заниматься своими делами."),
+        h("a", { className: "ml-text-link", href: `tel:${phone}` }, "Задать вопрос менеджеру →"))),
+
+    h("section", { className: "ml-section ml-faq", id: "faq" },
+      h("div", { className: "ml-section-heading" }, h("span", { className: "ml-eyebrow" }, "Подскажем до заказа"), h("h2", null, "Частые вопросы")),
+      h("div", { className: "ml-faq-layout" },
+        h("div", { className: "ml-faq-list" }, faq.map(([question, answer], index) =>
+          h("details", { className: "ml-faq-item", key: question, open: index === 0 || undefined }, h("summary", null, question), h("p", null, answer)))),
+        h("aside", { className: "ml-help-card" }, h("h3", null, "Поможем выбрать"),
+          h("p", null, "Расскажите, что важно для вас, — менеджер подскажет, с чего начать."),
+          h("a", { className: "ml-button ml-button-dark", href: "https://t.me/macromillman" }, "Написать нам →"),
+          h("a", { className: "ml-help-phone", href: `tel:${phone}` }, "+7 979 859 87 11")))),
+
+    h("footer", { className: "ml-footer" },
+      h("div", { className: "ml-footer-top" }, h("img", { src: `${base}logo.png`, alt: "МакроМилл" }),
+        h("p", null, "Готовые рационы с доставкой по Севастополю"),
+        h("div", { className: "ml-footer-contacts" }, h("a", { href: `tel:${phone}` }, "+7 979 859 87 11"), h("a", { href: "mailto:Kozhemyachenko.aleksej@mail.ru" }, "Kozhemyachenko.aleksej@mail.ru"))),
+      h("div", { className: "ml-footer-bottom" }, h("span", null, `© ${new Date().getFullYear()} МакроМилл`),
+        h("div", null, h("a", { href: `${base}oferta.html` }, "Публичная оферта"), h("a", { href: `${base}agreement.html` }, "Условия использования"), h("a", { href: `${base}about.html` }, "Реквизиты и контакты")))),
+    h("div", { className: "ml-mobile-bar" }, h("div", null, h("small", null, "Тариф в день"), h("b", null, rub(daily))), h("a", { href: checkout }, "Оформить заказ →")));
+}
+
+export default Landing;
