@@ -24,3 +24,43 @@
 .mm-landing-v2 .ml-about-copy h2{line-height:1.2}
 .mm-landing-v2 .ml-line-switch button:focus-visible,.mm-landing-v2 .ml-goal-option:focus-visible,.mm-landing-v2 a:focus-visible,.mm-landing-v2 summary:focus-visible{outline:3px solid #8da51c;outline-offset:3px}
 @media(max-width:680px){.mm-landing-v2 .ml-hero{min-height:570px;padding:45px 18px 54px}.mm-landing-v2 .ml-hero:before{background:linear-gradient(90deg,#f7f8f5ee,#f7f8f5c9 72%,#f7f8f5a5)}.mm-landing-v2 .ml-hero h1{font-size:clamp(32px,8.7vw,45px);overflow-wrap:break-word}.mm-landing-v2 .ml-hero-proof{gap:5px}.mm-landing-v2 .ml-hero-proof>div{padding:8px 5px}.mm-landing-v2 .ml-hero-proof b{font-size:11px}.mm-landing-v2 .ml-hero-proof span{font-size:8px}.mm-landing-v2 .ml-delivery-grid{grid-template-columns:1fr}.mm-landing-v2 .ml-delivery-grid article{padding:21px}.mm-landing-v2 .ml-summary-button{display:none}}
+.mm-landing-v2 .ml-delivery{background:#f2f4ed}
+.mm-landing-v2 .ml-delivery-heading{margin-bottom:34px}
+.mm-landing-v2 .ml-delivery-options{max-width:var(--ml-max);margin:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.mm-landing-v2 .ml-delivery-card{min-width:0;padding:25px;border:1px solid var(--ml-line);border-radius:20px;background:#fff;box-shadow:0 12px 34px #10241d0b}
+.mm-landing-v2 .ml-delivery-card-heading{display:flex;align-items:flex-start;gap:18px;min-height:76px}
+.mm-landing-v2 .ml-delivery-card-heading>div{min-width:0}
+.mm-landing-v2 .ml-delivery-icon{flex:0 0 auto;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:var(--ml-leaf);color:var(--ml-green)}
+.mm-landing-v2 .ml-delivery-icon svg{width:27px;height:27px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.mm-landing-v2 .ml-delivery-card h3{margin:2px 0 6px;color:var(--ml-green);font-size:24px;letter-spacing:-.03em}
+.mm-landing-v2 .ml-delivery-highlight{display:inline-block;padding:3px 9px;border-radius:7px;background:var(--ml-lime);color:var(--ml-green);font-size:14px}
+.mm-landing-v2 .ml-pickup-address{display:block;color:var(--ml-ink);font-size:14px;line-height:1.45}
+.mm-landing-v2 .ml-delivery-description{min-height:42px;margin:10px 0 16px;color:#5c6861;font-size:13px;line-height:1.6}
+.mm-landing-v2 .ml-route-map,.mm-landing-v2 .ml-pickup-map{height:190px;position:relative;overflow:hidden;border-radius:14px;background:#eef1e9}
+.mm-landing-v2 .ml-route-map{background:radial-gradient(ellipse at 18% 85%,#e2e8d8 0 14%,transparent 14.3%),radial-gradient(ellipse at 72% 14%,#e2e8d8 0 12%,transparent 12.3%),#eef1e9}
+.mm-landing-v2 .ml-route-map:before,.mm-landing-v2 .ml-route-map:after{content:"";position:absolute;width:140%;height:1px;left:-15%;background:#ffffffd9;transform:rotate(-13deg)}
+.mm-landing-v2 .ml-route-map:before{top:43%;box-shadow:0 22px #ffffffb3,0 -24px #ffffffa6}
+.mm-landing-v2 .ml-route-map:after{top:58%;transform:rotate(19deg)}
+.mm-landing-v2 .ml-route-map svg{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+.mm-landing-v2 .ml-map-road{fill:none;stroke:#ffffffdc;stroke-width:7}
+.mm-landing-v2 .ml-map-road-secondary{stroke-width:4}
+.mm-landing-v2 .ml-map-route{fill:none;stroke:var(--ml-leaf);stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+.mm-landing-v2 .ml-map-dot{fill:var(--ml-green);stroke:#fff;stroke-width:4}
+.mm-landing-v2 .ml-map-pin-dot{fill:var(--ml-green);stroke:#fff;stroke-width:4}
+.mm-landing-v2 .ml-map-label,.mm-landing-v2 .ml-map-caption{position:absolute;z-index:2;color:#53625b;font-size:11px;font-weight:800}
+.mm-landing-v2 .ml-map-label{left:16px;top:14px}
+.mm-landing-v2 .ml-map-caption{right:13px;bottom:12px;padding:6px 9px;border-radius:7px;background:#ffffffe0;font-size:10px}
+.mm-landing-v2 .ml-pickup-map{background-color:#eef1e9;background-image:linear-gradient(25deg,transparent 46%,#ffffffed 47% 51%,transparent 52%),linear-gradient(110deg,transparent 43%,#ffffffed 44% 48%,transparent 49%),linear-gradient(165deg,transparent 60%,#ffffffed 61% 65%,transparent 66%)}
+.mm-landing-v2 .ml-pickup-road{position:absolute;height:9px;border:1px solid #dce3d9;border-width:1px 0;background:#fff}
+.mm-landing-v2 .ml-pickup-road-one{width:120%;left:-10%;top:48%;transform:rotate(-15deg)}
+.mm-landing-v2 .ml-pickup-road-two{width:95%;left:10%;top:27%;transform:rotate(48deg)}
+.mm-landing-v2 .ml-pickup-road-three{width:90%;left:18%;top:70%;transform:rotate(12deg)}
+.mm-landing-v2 .ml-pickup-park{position:absolute;width:64px;height:46px;right:13%;bottom:9%;border-radius:14px 35px 15px 30px;background:#dfe8d3;transform:rotate(-14deg)}
+.mm-landing-v2 .ml-pickup-map-label{position:absolute;z-index:1;left:12%;top:54%;color:#66736c;font-size:10px;font-weight:700;transform:rotate(-15deg)}
+.mm-landing-v2 .ml-pickup-pin{position:absolute;z-index:2;left:57%;top:30%;color:var(--ml-green);filter:drop-shadow(0 3px 3px #0003)}
+.mm-landing-v2 .ml-pickup-pin svg{width:32px;height:32px;fill:currentColor;stroke:currentColor}
+.mm-landing-v2 .ml-map-button{min-height:46px;margin-top:12px;padding:0 17px;border-radius:11px;display:flex;align-items:center;justify-content:center;background:var(--ml-green);color:#fff!important;font-size:13px;font-weight:800;transition:background .18s,transform .18s}
+.mm-landing-v2 .ml-map-button:hover{background:#0b503d;transform:translateY(-1px)}
+.mm-landing-v2 .ml-delivery-note{max-width:var(--ml-max);min-height:66px;margin:18px auto 0;padding:14px 20px;border-radius:14px;display:flex;align-items:center;justify-content:center;gap:13px;background:var(--ml-lime);color:var(--ml-green);font-size:13px;font-weight:700;text-align:center}
+.mm-landing-v2 .ml-delivery-note>span:first-child{font-size:25px;line-height:1}
+@media(max-width:680px){.mm-landing-v2 .ml-delivery-heading{text-align:left;margin-bottom:22px}.mm-landing-v2 .ml-delivery-heading h2{font-size:29px}.mm-landing-v2 .ml-delivery-options{grid-template-columns:1fr;gap:12px}.mm-landing-v2 .ml-delivery-card{padding:17px;border-radius:16px}.mm-landing-v2 .ml-delivery-card-heading{gap:12px;min-height:58px}.mm-landing-v2 .ml-delivery-icon{width:46px;height:46px}.mm-landing-v2 .ml-delivery-icon svg{width:22px;height:22px}.mm-landing-v2 .ml-delivery-card h3{margin:0 0 4px;font-size:19px}.mm-landing-v2 .ml-delivery-highlight,.mm-landing-v2 .ml-pickup-address{font-size:11px}.mm-landing-v2 .ml-delivery-description{min-height:0;margin:8px 0 12px;font-size:11px}.mm-landing-v2 .ml-route-map,.mm-landing-v2 .ml-pickup-map{height:145px}.mm-landing-v2 .ml-map-button{min-height:43px;font-size:11px}.mm-landing-v2 .ml-delivery-note{min-height:58px;margin-top:12px;padding:12px;gap:9px;font-size:10px;line-height:1.45}}
