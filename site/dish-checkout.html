@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ваш выбор блюд — МакроМилл</title>
+  <link rel="icon" href="/macromill-landing-page/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/macromill-landing-page/assets/checkout.css">
+  <link rel="stylesheet" href="/macromill-landing-page/assets/dish-checkout-v1.css">
+  <script type="module" src="/macromill-landing-page/assets/dish-checkout-v1.js"></script>
+</head>
+<body class="checkout-page dish-checkout-page">
+  <header class="checkout-header">
+    <a href="/macromill-landing-page/#top" aria-label="МакроМилл — на главную"><img src="/macromill-landing-page/logo.png" alt="МакроМилл"></a>
+    <a href="tel:+79798598711">+7 979 859 87 11</a>
+  </header>
+  <main class="checkout-shell">
+    <a id="back-to-dishes" class="back-link" href="/macromill-landing-page/#dishes">← Вернуться к блюдам</a>
+    <div class="checkout-heading"><span>МАКРОМИЛЛ · СЕВАСТОПОЛЬ</span><h1>Ваш выбор блюд</h1><p>Проверьте состав набора и оставьте данные. Менеджер подтвердит дату получения.</p></div>
+    <div id="dish-order-unavailable" class="checkout-card dish-unavailable" hidden>
+      <h2>Набор ещё не собран</h2><p>Выберите хотя бы три порции, чтобы перейти к оформлению.</p><a href="/macromill-landing-page/#dishes">Выбрать блюда →</a>
+    </div>
+    <div id="dish-checkout-grid" class="checkout-grid">
+      <form id="checkout-form" novalidate>
+        <section class="checkout-card checkout-order">
+          <div class="card-heading"><span class="step">01</span><h2>Ваш набор</h2><a id="change-dishes" href="/macromill-landing-page/#dishes">Изменить</a></div>
+          <div class="dish-order-intro"><span id="fact-tier"></span><strong id="fact-count"></strong></div>
+          <div id="selected-dishes" class="dish-review-list"></div>
+          <div class="dish-order-total"><span>Стоимость набора</span><strong id="fact-total"></strong></div>
+        </section>
+        <section class="checkout-card">
+          <div class="card-heading"><span class="step">02</span><h2>Получение заказа</h2></div>
+          <div class="method-switch" role="group" aria-label="Способ получения"><button type="button" data-method="delivery" aria-pressed="true">Доставка</button><button type="button" data-method="pickup" aria-pressed="false">Самовывоз</button></div>
+          <div id="delivery-fields" class="fields-grid">
+            <label class="wide">Улица и дом <input id="street" name="street" autocomplete="street-address" placeholder="Например, пр. Октябрьской Революции, 42"><small class="field-error" id="street-error"></small></label>
+            <label>Квартира или офис <input id="unit" name="unit" autocomplete="address-line2" placeholder="Если есть"></label>
+            <label>Подъезд <input id="entrance" name="entrance" placeholder="Необязательно"></label>
+            <label>Этаж <input id="floor" name="floor" placeholder="Необязательно"></label>
+            <label>Домофон <input id="intercom" name="intercom" placeholder="Необязательно"></label>
+            <label class="wide">Комментарий курьеру <textarea id="courier-comment" name="courierComment" rows="2" placeholder="Необязательно"></textarea></label>
+          </div>
+          <div id="pickup-point" hidden><strong>Точка самовывоза</strong><p>Севастополь, пр. Октябрьской Революции, 61</p><p>Интервалы выдачи: 09:00–12:00, 12:00–15:00, 15:00–18:00, 18:00–20:00 и 20:00–22:00.</p></div>
+          <label class="date-field">Предпочтительная дата получения <input id="first-date" name="firstDate" type="date" required><small class="field-error" id="first-date-error"></small></label>
+          <label class="date-field">Удобное время получения <select id="time-slot" name="timeSlot"><option>09:00 – 12:00</option><option>12:00 – 15:00</option><option>15:00 – 18:00</option><option>18:00 – 20:00</option><option>20:00 – 22:00</option></select></label>
+          <p id="date-note" class="date-note" aria-live="polite"></p>
+        </section>
+        <section class="checkout-card">
+          <div class="card-heading"><span class="step">03</span><h2>Ваши контакты</h2></div>
+          <div class="fields-grid"><label>Имя <input id="customer-name" name="name" autocomplete="given-name" placeholder="Как к вам обращаться" required><small class="field-error" id="customer-name-error"></small></label><label>Телефон <input id="customer-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+7 999 123-45-67" required><small class="field-error" id="customer-phone-error"></small></label></div>
+          <p class="muted">Регистрация, пароль и анкета не нужны.</p>
+        </section>
+        <section class="checkout-card mobile-totals"><h2>Итого</h2><div class="dish-totals-slot"></div></section>
+        <button class="submit-button" type="submit">Подготовить заявку</button>
+        <p class="submit-note">Откроется ваше почтовое приложение с заполненной заявкой. Проверьте её и нажмите «Отправить». Заказ подтвердит менеджер.</p>
+      </form>
+      <aside class="checkout-card checkout-aside"><h2>Итого</h2><div class="dish-totals-slot"></div><div class="aside-help">Нужна помощь?<br><a href="tel:+79798598711">+7 979 859 87 11</a></div></aside>
+    </div>
+  </main>
+</body>
+</html>
