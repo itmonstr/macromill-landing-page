@@ -1,0 +1,14 @@
+.dish-checkout-page{background:#f4f7ed;color:#10241d;font-family:Manrope,Arial,sans-serif}
+.dish-checkout-page .checkout-heading h1{color:#063e2f}
+.dish-order-intro{display:flex;align-items:center;justify-content:space-between;gap:12px;border-radius:12px;padding:12px 15px;background:#eff5d9;margin-bottom:9px;color:#38552e}
+.dish-order-intro span{font-weight:800}.dish-order-intro strong{font-size:12px;white-space:nowrap}
+.dish-review-list{display:grid;gap:0}
+.dish-review-item{display:grid;grid-template-columns:65px minmax(0,1fr) auto;align-items:center;gap:13px;padding:11px 0;border-bottom:1px solid #edf0e9}
+.dish-review-item img{width:65px;height:59px;object-fit:contain;background:#f3f6f0;border-radius:8px}
+.dish-review-item strong{display:block;font-size:13px;line-height:1.35}
+.dish-review-item small{display:block;font-size:11px;color:#768678;margin-top:4px}
+.dish-review-item b{font-size:13px;white-space:nowrap;color:#063e2f}
+.dish-order-total{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:18px;font-size:14px;font-weight:800}
+.dish-order-total strong{font-size:22px;color:#063e2f}
+.dish-unavailable{max-width:600px}.dish-unavailable h2{font-size:27px;margin:0 0 8px}.dish-unavailable p{color:#677567}.dish-unavailable a{display:inline-block;margin-top:8px;background:#063e2f;color:white;text-decoration:none;border-radius:10px;padding:13px 17px;font-weight:800}
+@media(max-width:560px){.dish-review-item{grid-template-columns:54px minmax(0,1fr);gap:10px}.dish-review-item img{width:54px;height:54px}.dish-review-item b{grid-column:2;justify-self:start;margin-top:-6px}.dish-order-intro{padding:11px}.dish-order-total strong{font-size:19px}}
