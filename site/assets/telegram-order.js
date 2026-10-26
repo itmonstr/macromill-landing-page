@@ -1,7 +1,5 @@
 // Отправка заявок с лендинга в Telegram бота
 const EDGE_URL = 'https://macromill.ru/functions/v1/landing-lead';
-const DIRECT_BOT_TOKEN = '8952562730:AAFTzoeoAgDd9y_Ig-iF1wAXVyCjx_l4D5U';
-const DIRECT_CHAT_ID = '1790844261';
 
 function escapeHtml(str) {
   if (!str) return '';
@@ -71,7 +69,8 @@ export function buildTelegramMessage(order) {
 export async function sendOrderToTelegram(order) {
   const text = buildTelegramMessage(order);
 
-  // 1. Пробуем через надёжную серверную Edge Function
+  // Токен Telegram хранится только на сервере. Клиент никогда не обращается
+  // к Bot API напрямую, чтобы секрет не попадал в публичный JavaScript.
   try {
     const res = await fetch(EDGE_URL, {
       method: 'POST',
@@ -81,30 +80,11 @@ export async function sendOrderToTelegram(order) {
     if (res.ok) {
       const data = await res.json();
       if (data.ok) return { ok: true, via: 'edge' };
+      throw new Error(data.error || 'Ошибка серверной отправки');
     }
+    throw new Error(`Сервер вернул HTTP ${res.status}`);
   } catch (e) {
-    console.warn('Edge function failed, falling back to direct TG API:', e);
-  }
-
-  // 2. Резервный канал — прямой вызов Telegram Bot API
-  try {
-    const directRes = await fetch(`https://api.telegram.org/bot${DIRECT_BOT_TOKEN}/sendMessage`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        chat_id: DIRECT_CHAT_ID,
-        text,
-        parse_mode: 'HTML',
-        disable_web_page_preview: true,
-      }),
-    });
-    const directData = await directRes.json();
-    if (directData.ok) {
-      return { ok: true, via: 'direct' };
-    }
-    throw new Error(directData.description || 'Ошибка Telegram API');
-  } catch (err) {
-    console.error('All Telegram send attempts failed:', err);
-    return { ok: false, error: String(err) };
+    console.error('Telegram server endpoint failed:', e);
+    return { ok: false, error: String(e) };
   }
 }
