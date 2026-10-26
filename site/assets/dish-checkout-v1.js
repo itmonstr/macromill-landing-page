@@ -131,7 +131,13 @@ if (count < 3) {
     if (badStreet || badDate || badName || badPhone) { qs('[aria-invalid="true"]')?.focus(); return; }
     persist();
     const destination = state.method === 'delivery'
-      ? [fields.street, fields.unit, fields.entrance && `подъезд ${fields.entrance}`, fields.floor && `этаж ${fields.floor}`, fields.intercom && `домофон ${fields.intercom}`].filter(Boolean).join(', ')
+      ? [
+          fields.street,
+          fields.unit ? `кв./офис: ${fields.unit}` : null,
+          fields.entrance ? `подъезд: ${fields.entrance}` : null,
+          fields.floor ? `этаж: ${fields.floor}` : null,
+          fields.intercom ? `домофон: ${fields.intercom}` : null
+        ].filter(Boolean).join(', ')
       : 'Самовывоз: Севастополь, пр. Октябрьской Революции, 61';
     const lines = ['Заявка на выбор блюд МакроМилл', '', `Линейка: ${tier === 'premium' ? 'Премиум' : 'Доступная'}`, `Количество: ${count} ${plural(count)}`, 'Блюда:'];
     for (const dish of selected) lines.push(`• ${dish.name} — ${dish.qty} × ${rub(dish.price)} = ${rub(dish.qty * dish.price)}`);

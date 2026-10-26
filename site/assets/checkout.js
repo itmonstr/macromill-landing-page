@@ -120,7 +120,13 @@ qs("#checkout-form").addEventListener("submit", (event) => {
   if (badStreet || badDate || badName || badPhone) { qs('[aria-invalid="true"]')?.focus(); return; }
   persist();
   const destination = state.method === "delivery"
-    ? [values.street, values.unit, values.entrance && `подъезд ${values.entrance}`, values.floor && `этаж ${values.floor}`, values.intercom && `домофон ${values.intercom}`].filter(Boolean).join(", ")
+    ? [
+        values.street,
+        values.unit ? `кв./офис: ${values.unit}` : null,
+        values.entrance ? `подъезд: ${values.entrance}` : null,
+        values.floor ? `этаж: ${values.floor}` : null,
+        values.intercom ? `домофон: ${values.intercom}` : null
+      ].filter(Boolean).join(", ")
     : "Самовывоз: Севастополь, пр. Октябрьской Революции, 61";
   const lines = ["Заявка на рацион МакроМилл", "", `Линейка: ${plans[tier].label}`, `Рацион: ${goal}, ${kcal} ккал`, `Срок: ${days} ${dayWord(days)}`, `Стоимость питания: ${money(total)}`, `Получение: ${state.method === "delivery" ? "доставка" : "самовывоз"}`, `Адрес: ${destination}`, `Предпочтительная дата: ${values["first-date"]}`, `Предпочтительный интервал: ${values["time-slot"]}`, `Имя: ${values["customer-name"]}`, `Телефон: ${values["customer-phone"]}`];
   if (values["courier-comment"]) lines.push(`Комментарий курьеру: ${values["courier-comment"]}`);
