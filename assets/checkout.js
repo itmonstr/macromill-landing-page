@@ -1,3 +1,4 @@
+import { sendOrderToTelegram } from "./telegram-order.js";
 const base = "/macromill-landing-page/";
 const plans = {
   affordable: {
@@ -119,11 +120,80 @@ qs("#checkout-form").addEventListener("submit", (event) => {
   if (badStreet || badDate || badName || badPhone) { qs('[aria-invalid="true"]')?.focus(); return; }
   persist();
   const destination = state.method === "delivery"
-    ? [values.street, values.unit, values.entrance && `подъезд ${values.entrance}`, values.floor && `этаж ${values.floor}`, values.intercom && `домофон ${values.intercom}`].filter(Boolean).join(", ")
+    ? [
+        values.street,
+        values.unit ? `кв./офис: ${values.unit}` : null,
+        values.entrance ? `подъезд: ${values.entrance}` : null,
+        values.floor ? `этаж: ${values.floor}` : null,
+        values.intercom ? `домофон: ${values.intercom}` : null
+      ].filter(Boolean).join(", ")
     : "Самовывоз: Севастополь, пр. Октябрьской Революции, 61";
   const lines = ["Заявка на рацион МакроМилл", "", `Линейка: ${plans[tier].label}`, `Рацион: ${goal}, ${kcal} ккал`, `Срок: ${days} ${dayWord(days)}`, `Стоимость питания: ${money(total)}`, `Получение: ${state.method === "delivery" ? "доставка" : "самовывоз"}`, `Адрес: ${destination}`, `Предпочтительная дата: ${values["first-date"]}`, `Предпочтительный интервал: ${values["time-slot"]}`, `Имя: ${values["customer-name"]}`, `Телефон: ${values["customer-phone"]}`];
   if (values["courier-comment"]) lines.push(`Комментарий курьеру: ${values["courier-comment"]}`);
   if (qs(".promo-input")?.value.trim()) lines.push(`Промокод для проверки: ${qs(".promo-input").value.trim()}`);
   lines.push("", "Пожалуйста, подтвердите дату и детали заказа.");
-  location.href = `mailto:Kozhemyachenko.aleksej@mail.ru?subject=${encodeURIComponent("Заявка на рацион МакроМилл")}&body=${encodeURIComponent(lines.join("\n"))}`;
+  
+  const submitBtn = qs("#submit-btn") || qs(".submit-button");
+  const errorBox = qs("#submit-error");
+  if (errorBox) errorBox.hidden = true;
+  submitBtn.disabled = true;
+  const originalText = submitBtn.textContent;
+  submitBtn.textContent = "Отправка заявки...";
+
+  const orderData = {
+    orderType: "ration",
+    title: "🍱 Новая заявка: Готовый рацион питания",
+    name: values["customer-name"],
+    phone: values["customer-phone"],
+    total: money(total),
+    method: state.method === "delivery" ? "Доставка курьером" : "Самовывоз",
+    destination,
+    firstDate: values["first-date"],
+    timeSlot: values["time-slot"] || "",
+    comment: values["courier-comment"] || "",
+    promo: qs(".promo-input")?.value.trim() || "",
+    facts: [
+      ["Тип заказа", "Готовый рацион питания"],
+      ["Линейка", plans[tier].label],
+      ["Рацион", `${goal} · ${kcal} ккал`],
+      ["Блюд в день", meals],
+      ["Срок питания", `${days} ${dayWord(days)}`],
+      ["Тариф в день", money(daily)],
+      discount ? ["Скидка", `${Math.round(pct * 100)} % (−${money(discount)})`] : null,
+    ].filter(Boolean),
+    menuDays: saved.menuDays || null,
+  };
+
+  sendOrderToTelegram(orderData).then((res) => {
+    if (res.ok) {
+      // Отправка целей в Яндекс.Метрику
+      try {
+        if (typeof window.ym === "function") {
+          window.ym(113757113, 'reachGoal', 'order_lead');
+          window.ym(113757113, 'reachGoal', 'lead');
+          window.ym(113757113, 'reachGoal', 'order_success');
+          window.ym(113757113, 'reachGoal', 'zakaz');
+        }
+      } catch(e) {}
+      try { sessionStorage.removeItem("mm-order-draft"); } catch(e) {}
+      const phoneSpan = qs("#success-phone");
+      if (phoneSpan) phoneSpan.textContent = values["customer-phone"];
+      const modal = qs("#success-modal");
+      if (modal) modal.hidden = false;
+    } else {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+      if (errorBox) {
+        errorBox.textContent = "Не удалось отправить заявку автоматически. Пожалуйста, попробуйте ещё раз или позвоните нам: +7 979 859 87 11";
+        errorBox.hidden = false;
+      }
+    }
+  }).catch((err) => {
+    submitBtn.disabled = false;
+    submitBtn.textContent = originalText;
+    if (errorBox) {
+      errorBox.textContent = "Ошибка соединения. Пожалуйста, позвоните нам: +7 979 859 87 11";
+      errorBox.hidden = false;
+    }
+  });
 });
