@@ -50,27 +50,36 @@ function generateAffordableMenuLikeApp(goal, totalDays, customKcal, excludedDish
         if (duplicate >= 0) alternatives.splice(duplicate, 1);
         alternatives.push(state);
         alternatives.sort((a, b) => a.score - b.score);
-        if (alternatives.length > 16) alternatives.length = 16;
+        if (alternatives.length > 20) alternatives.length = 20;
         next.set(key, alternatives);
       };
+      const shuffledPool = [...pool].sort(() => Math.random() - 0.5);
       for (const group of states.values()) for (const state of group) {
         if (!required.has(slots[slotIndex])) keepBest(state);
-        for (const dish of pool) {
-          const maxQty = Math.min(5, Math.floor((targetKcal + 100) / dish.base_kcal));
+        for (const dish of shuffledPool) {
+          const maxQty = Math.min(2, Math.floor((targetKcal + 80) / dish.base_kcal));
           for (let qty = 1; qty <= maxQty; qty++) {
             const kcal = state.kcal + dish.base_kcal * qty;
-            if (kcal > targetKcal + 100) continue;
+            if (kcal > targetKcal + 80) continue;
             const meal = { dishId: dish.id, meal: slots[slotIndex], name: dish.name, category: dish.category, image: dish.image || null, weight: dish.base_weight, kcal: dish.base_kcal, p: dish.base_p, f: dish.base_f, c: dish.base_c, qty, price: dish.price || 0 };
-            keepBest({ kcal, slotCount: state.slotCount + 1, meals: [...state.meals, meal], score: state.score + (uses.get(dish.id) || 0) ** 2 * 100 + (recent.includes(dish.id) ? 30 : 0) + (qty - 1) * 10 + Math.random() * 5 });
+            keepBest({ kcal, slotCount: state.slotCount + 1, meals: [...state.meals, meal], score: state.score + (uses.get(dish.id) || 0) ** 2 * 100 + (recent.includes(dish.id) ? 40 : 0) + (qty - 1) * 30 + Math.random() * 20 });
           }
         }
       }
       states = next;
     }
     const all = [...states.values()].flat();
-    const inRange = all.filter((state) => state.slotCount >= 3 && Math.abs(state.kcal - targetKcal) <= 100);
+    const inRange = all.filter((state) => state.slotCount >= 3 && Math.abs(state.kcal - targetKcal) <= 70);
     const candidates = inRange.length ? inRange : all.filter((state) => state.slotCount >= 3);
-    const selected = candidates.map((candidate) => ({ candidate, score: Math.abs(candidate.kcal - targetKcal) * 100000 + Math.abs(candidate.slotCount - idealCount) * 1000 + candidate.score + (usedMenus.has(candidate.meals.map((meal) => `${meal.dishId}x${meal.qty}`).join("-")) ? 12000000 : 0) + Math.random() * 30 })).sort((a, b) => a.score - b.score)[0]?.candidate || { kcal: 0, meals: [] };
+    const selected = candidates.map((candidate) => {
+      const kcalDiff = Math.abs(candidate.kcal - targetKcal);
+      const slotDiff = Math.abs(candidate.slotCount - idealCount);
+      const isUsed = usedMenus.has(candidate.meals.map((meal) => `${meal.dishId}x${meal.qty}`).join("-"));
+      return {
+        candidate,
+        score: (isUsed ? 50000 : 0) + slotDiff * 500 + kcalDiff * 15 + candidate.score + Math.random() * 200
+      };
+    }).sort((a, b) => a.score - b.score)[0]?.candidate || { kcal: 0, meals: [] };
     const menuKey = selected.meals.map((meal) => `${meal.dishId}x${meal.qty}`).join("-");
     for (const meal of selected.meals) { uses.set(meal.dishId, (uses.get(meal.dishId) || 0) + meal.qty); recent.push(meal.dishId); }
     usedMenus.add(menuKey);
@@ -242,7 +251,7 @@ function Landing() {
             h("p", { className: "ml-payment-note" }, "При заказе от 4 дней питание выдаётся партиями до трёх дней."))),
         h("div", { className: "ml-menu-preview" },
           h("div", { className: "ml-preview-head" },
-            h("div", null, h("span", { className: "ml-eyebrow" }, "Пример меню"), h("h3", null, "Что будет в рационе")),
+            h("div", null, h("h3", null, "Что будет в рационе")),
             h("div", { className: "ml-day-controls" },
               h("button", { type: "button", "aria-label": "Предыдущий день", onClick: () => setDayIndex((index) => (index + menu.length - 1) % menu.length) }, "‹"),
               h("span", null, weekdays[dayIndex % weekdays.length]),
