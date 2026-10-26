@@ -177,6 +177,15 @@ if (count < 3) {
 
     sendOrderToTelegram(orderData).then((res) => {
       if (res.ok) {
+      // Отправка целей в Яндекс.Метрику
+      try {
+        if (typeof window.ym === "function") {
+          window.ym(113757113, 'reachGoal', 'order_lead');
+          window.ym(113757113, 'reachGoal', 'lead');
+          window.ym(113757113, 'reachGoal', 'order_success');
+          window.ym(113757113, 'reachGoal', 'zakaz');
+        }
+      } catch(e) {}
         try { sessionStorage.removeItem("mm-dish-selection-draft"); } catch(e) {}
         const phoneSpan = qs("#success-phone");
         if (phoneSpan) phoneSpan.textContent = fields["customer-phone"];
