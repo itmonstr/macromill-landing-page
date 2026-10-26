@@ -89,7 +89,7 @@ function generateAffordableMenuLikeApp(goal, totalDays, customKcal, excludedDish
   return result;
 }
 
-function FoodCard({ entry, index, onReplace }) {
+function FoodCard({ entry, index }) {
   const { dish, meal, qty = 1 } = entry;
   if (!dish) return null;
   return h("article", { className: "ml-food-card", key: `${dish.id}-${index}` },
@@ -102,8 +102,7 @@ function FoodCard({ entry, index, onReplace }) {
       h("div", { className: "ml-macros" },
         h("span", null, `Б ${Math.round((dish.base_p || 0) * qty)} г`),
         h("span", null, `Ж ${Math.round((dish.base_f || 0) * qty)} г`),
-        h("span", null, `У ${Math.round((dish.base_c || 0) * qty)} г`)),
-      h("button", { type: "button", className: "ml-food-replace", onClick: () => onReplace(index), "aria-label": `Заменить блюдо ${dish.name}` }, "↻ Заменить")));
+        h("span", null, `У ${Math.round((dish.base_c || 0) * qty)} г`))));
 }
 
 function Landing() {
@@ -223,7 +222,7 @@ function Landing() {
   const faq = [
     ["Можно заказать только один раз?", "Да. Выберите подходящий срок и оформите разовый заказ."],
     ["Нужно ли заполнять анкету?", "Нет. Для заявки нужны только имя и телефон. Рост, вес и другие параметры не спрашиваем."],
-    ["Можно ли заменить блюдо?", "Да. Нажмите «Заменить» в меню: выберите другое блюдо или добавьте порцию блюда из этого дня. Замены подбираются с учётом калорийности дня."],
+    ["Можно ли скорректировать блюда в рационе?", "Да. Если у вас есть пожелания или непереносимость продуктов, просто сообщите об этом менеджеру при подтверждении заказа."],
     ["Где посмотреть состав и аллергены?", "Блюда и КБЖУ показаны в меню. При аллергии уточните состав у менеджера до заказа."],
     ["Когда привезут заказ?", "При оформлении выберите дату. Заказы до 14:00 обычно доступны на следующий день, после — через день. Дату подтвердит менеджер."],
     ["Почему привозим питание частями?", "Длительные заказы доставляем несколькими партиями, чтобы не хранить еду на всю неделю. Например, питание на четыре дня привезём сначала на три дня, затем на четвёртый. Даты согласуем при оформлении."],
@@ -284,15 +283,8 @@ function Landing() {
           h("div", { className: "ml-menu-actions" },
             h("p", { className: "ml-example-caption" }, "Пример дня. Состав меняется в зависимости от выбранной линейки и дня программы."),
             h("button", { type: "button", className: "ml-regenerate-button", onClick: regenerateMenu }, "↻ Перегенерировать рацион")),
-          h("div", { className: `ml-food-grid ${entries.length === 3 ? "ml-food-grid-three" : ""}` }, entries.map((entry, index) => h(FoodCard, { entry, index, key: `${dayIndex}-${index}-${entry.dish?.id}`, onReplace: (entryIndex) => { setSwapFilter(entries[entryIndex]?.dish?.category || null); setSwapTarget({ index: entryIndex }); } }))),
+          h("div", { className: `ml-food-grid ${entries.length === 3 ? "ml-food-grid-three" : ""}` }, entries.map((entry, index) => h(FoodCard, { entry, index, key: `${dayIndex}-${index}-${entry.dish?.id}` }))),
           h("div", { className: "ml-menu-foot" }, h("span", null, "Итого за день"), h("b", null, `${previewKcal} ккал`))),
-        swapTarget && swapEntry && h("div", { className: "ml-swap-backdrop", onClick: () => { setSwapTarget(null); setSwapFilter(null); } },
-          h("section", { className: "ml-swap-dialog", role: "dialog", "aria-modal": "true", "aria-labelledby": "ml-swap-title", onClick: (event) => event.stopPropagation() },
-            h("div", { className: "ml-swap-heading" }, h("div", null, h("span", { className: "ml-eyebrow" }, "Подбор по калорийности"), h("h3", { id: "ml-swap-title" }, "Заменить блюдо"), h("p", null, `Вместо «${swapEntry.dish.name}» · день останется в пределах ±${swapTolerance} ккал от цели ${swapDayTarget} ккал.`)), h("button", { type: "button", onClick: () => { setSwapTarget(null); setSwapFilter(null); }, "aria-label": "Закрыть" }, "×")),
-            h("div", { className: "ml-swap-filters", role: "group", "aria-label": "Категория блюд" }, ["Завтрак", "Перекус", "Обед", "Полдник", "Ужин"].map((category) => h("button", { type: "button", key: category, className: activeSwapFilter === category ? "selected" : "", onClick: () => setSwapFilter(category) }, category))),
-            existingSwapOptions.length > 0 && h("div", { className: "ml-swap-group" }, h("h4", null, "Добавить порцию блюда из этого дня"), h("p", null, "Выбранное блюдо удалится, а к выбранной позиции добавится порция."), existingSwapOptions.map((option) => h("button", { type: "button", className: "ml-swap-option", key: `existing-${option.dish.id}`, onClick: () => pickReplacement(option, true) }, h("span", null, h("b", null, option.dish.name), h("small", null, `${option.dish.base_kcal} ккал · станет ${option.resultKcal} ккал за день`)), h("strong", null, "Добавить +1")))),
-            h("div", { className: "ml-swap-group" }, h("h4", null, "Заменить на другое блюдо"), h("p", null, "Показываем блюда той же категории, которые подходят по калориям."),
-              replacementSwapOptions.length ? replacementSwapOptions.map((option) => h("button", { type: "button", className: "ml-swap-option", key: `replacement-${option.dish.id}`, onClick: () => pickReplacement(option, false) }, h("span", null, h("b", null, option.dish.name), h("small", null, `${option.dish.base_kcal} ккал · станет ${option.resultKcal} ккал за день`)), h("strong", null, "Заменить"))) : h("p", { className: "ml-swap-empty" }, "Подходящих блюд этой категории нет. Попробуйте другой день или перегенерируйте рацион.")))),
         h("div", { className: "ml-order-summary" },
           h("div", { className: "ml-summary-rate" }, h("span", null, "Тариф"), h("b", null, rub(daily), h("small", null, " / день"))),
           discount > 0 && h("div", { className: "ml-summary-discount" }, `Скидка за срок ${Math.round(discount * 100)} %`),
