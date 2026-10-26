@@ -170,6 +170,8 @@ qs("#checkout-form").addEventListener("submit", (event) => {
       try {
         if (typeof window.ym === "function") {
           window.ym(113757113, 'reachGoal', 'order_lead');
+          window.ym(113757113, 'reachGoal', 'order_submit');
+          window.ym(113757113, 'reachGoal', 'order_sumbit');
           window.ym(113757113, 'reachGoal', 'lead');
           window.ym(113757113, 'reachGoal', 'order_success');
           window.ym(113757113, 'reachGoal', 'zakaz');
