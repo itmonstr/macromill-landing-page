@@ -50,11 +50,22 @@
           <p class="muted">Регистрация, пароль и анкета не нужны.</p>
         </section>
         <section class="checkout-card mobile-totals"><h2>Итого</h2><div class="totals-slot"></div></section>
-        <button class="submit-button" type="submit">Подготовить заявку</button>
-        <p class="submit-note">Откроется ваше почтовое приложение с заполненной заявкой. Проверьте её и нажмите «Отправить». Заказ подтвердит менеджер.</p>
+        <button id="submit-btn" class="submit-button" type="submit">Отправить заявку</button>
+        <p class="submit-note">Менеджер свяжется с вами по указанному телефону для подтверждения заказа.</p>
+        <div id="submit-error" class="submit-error-box" hidden></div>
       </form>
       <aside class="checkout-card checkout-aside"><h2>Итого</h2><div class="totals-slot"></div><div class="aside-help">Нужна помощь?<br><a href="tel:+79798598711">+7 979 859 87 11</a></div></aside>
     </div>
   </main>
+
+  <div id="success-modal" class="order-modal-backdrop" hidden>
+    <div class="order-modal-card">
+      <div class="order-modal-icon">✓</div>
+      <h2>Заявка успешно отправлена!</h2>
+      <p>Спасибо! Мы уже получили вашу заявку.</p>
+      <p class="order-modal-sub">Наш менеджер свяжется с вами по номеру <strong id="success-phone"></strong> в ближайшее время для подтверждения деталей.</p>
+      <a href="/macromill-landing-page/#top" class="submit-button order-modal-btn">Вернуться на главную</a>
+    </div>
+  </div>
 </body>
 </html>

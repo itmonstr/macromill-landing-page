@@ -1,3 +1,4 @@
+import { sendOrderToTelegram } from "./telegram-order.js";
 import { affordableDishes, premiumDishes } from './dish-catalog-v1.js';
 
 const base = '/macromill-landing-page/';
@@ -138,6 +139,56 @@ if (count < 3) {
     if (fields['courier-comment']) lines.push(`Комментарий курьеру: ${fields['courier-comment']}`);
     if (qs('.promo-input')?.value.trim()) lines.push(`Промокод для проверки: ${qs('.promo-input').value.trim()}`);
     lines.push('', 'Пожалуйста, подтвердите дату и детали заказа.');
-    location.href = `mailto:Kozhemyachenko.aleksej@mail.ru?subject=${encodeURIComponent('Заявка на выбор блюд МакроМилл')}&body=${encodeURIComponent(lines.join('\n'))}`;
+    
+    const submitBtn = qs("#submit-btn") || qs(".submit-button");
+    const errorBox = qs("#submit-error");
+    if (errorBox) errorBox.hidden = true;
+    submitBtn.disabled = true;
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = "Отправка заявки...";
+
+    const dishList = selected.map(dish => `${dish.name} — ${dish.qty} × ${rub(dish.price)} = ${rub(dish.qty * dish.price)}`);
+
+    const orderData = {
+      title: "Заявка на набор блюд MacroMill",
+      name: fields["customer-name"],
+      phone: fields["customer-phone"],
+      total: rub(total),
+      method: state.method === "delivery" ? "Доставка курьером" : "Самовывоз",
+      destination,
+      firstDate: fields["first-date"],
+      timeSlot: fields["time-slot"] || "",
+      comment: fields["courier-comment"] || "",
+      promo: qs(".promo-input")?.value.trim() || "",
+      facts: [
+        ["Линейка", tier === "premium" ? "Премиум" : "Доступная"],
+        ["Количество порций", `${count} ${plural(count)}`],
+      ],
+      dishes: dishList,
+    };
+
+    sendOrderToTelegram(orderData).then((res) => {
+      if (res.ok) {
+        try { sessionStorage.removeItem("mm-dish-selection-draft"); } catch(e) {}
+        const phoneSpan = qs("#success-phone");
+        if (phoneSpan) phoneSpan.textContent = fields["customer-phone"];
+        const modal = qs("#success-modal");
+        if (modal) modal.hidden = false;
+      } else {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+        if (errorBox) {
+          errorBox.textContent = "Не удалось отправить заявку автоматически. Пожалуйста, попробуйте ещё раз или позвоните нам: +7 979 859 87 11";
+          errorBox.hidden = false;
+        }
+      }
+    }).catch((err) => {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+      if (errorBox) {
+        errorBox.textContent = "Ошибка соединения. Пожалуйста, позвоните нам: +7 979 859 87 11";
+        errorBox.hidden = false;
+      }
+    });
   });
 }
