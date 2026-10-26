@@ -11,21 +11,38 @@ function escapeHtml(str) {
     .replace(/>/g, '&gt;');
 }
 
-export async function sendOrderToTelegram(order) {
+export function buildTelegramMessage(order) {
+  const isRation = order.orderType === 'ration';
+  const icon = isRation ? '🍱' : '📦';
+  const typeLabel = isRation ? 'Готовый рацион питания' : 'Выбор отдельных блюд';
+
   const lines = [
-    `🔔 <b>${escapeHtml(order.title || 'Новая заявка с сайта MacroMill')}</b>`,
+    `${icon} <b>Новая заявка: ${typeLabel}</b>`,
     '',
     `👤 <b>Имя:</b> ${escapeHtml(order.name)}`,
     `📞 <b>Телефон:</b> <code>${escapeHtml(order.phone)}</code>`,
   ];
 
   if (order.facts && order.facts.length > 0) {
-    lines.push('', '📋 <b>Параметры:</b>');
+    lines.push('', '📋 <b>Параметры заказа:</b>');
     for (const [k, v] of order.facts) {
       if (v) lines.push(`• <b>${escapeHtml(k)}:</b> ${escapeHtml(v)}`);
     }
   }
 
+  // Блюда в готовом рационе (по дням)
+  if (order.menuDays && order.menuDays.length > 0) {
+    lines.push('', '🥗 <b>Состав рациона по дням:</b>');
+    for (const d of order.menuDays) {
+      lines.push(`📅 <b>День ${d.day} (${escapeHtml(d.weekday || '')}):</b>`);
+      for (const m of d.meals || []) {
+        const qtyStr = m.qty > 1 ? ` (${m.qty} порц.)` : '';
+        lines.push(`  • <i>${escapeHtml(m.meal)}:</i> ${escapeHtml(m.name)}${qtyStr}`);
+      }
+    }
+  }
+
+  // Выбор отдельных блюд
   if (order.dishes && order.dishes.length > 0) {
     lines.push('', '🥗 <b>Выбранные блюда:</b>');
     for (const d of order.dishes) {
@@ -48,7 +65,11 @@ export async function sendOrderToTelegram(order) {
     lines.push('', `🏷 <b>Промокод:</b> <code>${escapeHtml(order.promo)}</code>`);
   }
 
-  const text = lines.join('\n');
+  return lines.join('\n');
+}
+
+export async function sendOrderToTelegram(order) {
+  const text = buildTelegramMessage(order);
 
   // 1. Пробуем через надёжную серверную Edge Function
   try {

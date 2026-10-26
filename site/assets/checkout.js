@@ -141,7 +141,8 @@ qs("#checkout-form").addEventListener("submit", (event) => {
   submitBtn.textContent = "Отправка заявки...";
 
   const orderData = {
-    title: "Заявка на рацион MacroMill",
+    orderType: "ration",
+    title: "🍱 Новая заявка: Готовый рацион питания",
     name: values["customer-name"],
     phone: values["customer-phone"],
     total: money(total),
@@ -152,6 +153,7 @@ qs("#checkout-form").addEventListener("submit", (event) => {
     comment: values["courier-comment"] || "",
     promo: qs(".promo-input")?.value.trim() || "",
     facts: [
+      ["Тип заказа", "Готовый рацион питания"],
       ["Линейка", plans[tier].label],
       ["Рацион", `${goal} · ${kcal} ккал`],
       ["Блюд в день", meals],
@@ -159,6 +161,7 @@ qs("#checkout-form").addEventListener("submit", (event) => {
       ["Тариф в день", money(daily)],
       discount ? ["Скидка", `${Math.round(pct * 100)} % (−${money(discount)})`] : null,
     ].filter(Boolean),
+    menuDays: saved.menuDays || null,
   };
 
   sendOrderToTelegram(orderData).then((res) => {

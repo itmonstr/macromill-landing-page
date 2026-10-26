@@ -156,7 +156,8 @@ if (count < 3) {
     const dishList = selected.map(dish => `${dish.name} — ${dish.qty} × ${rub(dish.price)} = ${rub(dish.qty * dish.price)}`);
 
     const orderData = {
-      title: "Заявка на набор блюд MacroMill",
+      orderType: "custom_dishes",
+      title: "📦 Новая заявка: Выбор отдельных блюд",
       name: fields["customer-name"],
       phone: fields["customer-phone"],
       total: rub(total),
@@ -167,6 +168,7 @@ if (count < 3) {
       comment: fields["courier-comment"] || "",
       promo: qs(".promo-input")?.value.trim() || "",
       facts: [
+        ["Тип заказа", "Выбор отдельных блюд"],
         ["Линейка", tier === "premium" ? "Премиум" : "Доступная"],
         ["Количество порций", `${count} ${plural(count)}`],
       ],

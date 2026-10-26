@@ -157,8 +157,33 @@ function Landing() {
 
   React.useEffect(() => {
     document.title = "МакроМилл — готовые рационы с доставкой по Севастополю";
-    try { sessionStorage.setItem("mm-order-draft", JSON.stringify({ ...saved, tier, goal: selectedGoal, days: duration })); } catch { /* storage optional */ }
-  }, [tier, selectedGoal, duration]);
+    try {
+      const menuDaysSummary = Array.from({ length: duration }, (_, dIdx) => {
+        const dObj = menu[dIdx % menu.length];
+        const dayMeals = (menuEdits[dIdx] || dObj?.meals || []).map((m) => {
+          const dishObj = m.dish || dishes.find((dish) => dish.id === m.dishId);
+          return {
+            meal: m.meal,
+            name: dishObj?.name || m.name,
+            qty: m.qty || 1,
+            kcal: dishObj?.base_kcal || m.kcal || 0
+          };
+        });
+        return {
+          day: dIdx + 1,
+          weekday: weekdays[dIdx % weekdays.length],
+          meals: dayMeals
+        };
+      });
+      sessionStorage.setItem("mm-order-draft", JSON.stringify({
+        ...saved,
+        tier,
+        goal: selectedGoal,
+        days: duration,
+        menuDays: menuDaysSummary
+      }));
+    } catch { /* storage optional */ }
+  }, [tier, selectedGoal, duration, menu, menuEdits]);
 
   function changeTier(next) {
     const nextGoals = next === "affordable" ? affordableGoals : premiumGoals;
