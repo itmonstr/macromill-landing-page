@@ -197,7 +197,7 @@ if (count < 3) {
         submitBtn.disabled = false;
         submitBtn.textContent = originalText;
         if (errorBox) {
-          errorBox.textContent = "Не удалось отправить заявку автоматически. Пожалуйста, попробуйте ещё раз или позвоните нам: +7 979 859 87 11";
+          errorBox.textContent = "Не удалось отправить заявку автоматически. Пожалуйста, попробуйте ещё раз или позвоните нам: +7 978 859 87 11";
           errorBox.hidden = false;
         }
       }
@@ -205,7 +205,7 @@ if (count < 3) {
       submitBtn.disabled = false;
       submitBtn.textContent = originalText;
       if (errorBox) {
-        errorBox.textContent = "Ошибка соединения. Пожалуйста, позвоните нам: +7 979 859 87 11";
+        errorBox.textContent = "Ошибка соединения. Пожалуйста, позвоните нам: +7 978 859 87 11";
         errorBox.hidden = false;
       }
     });

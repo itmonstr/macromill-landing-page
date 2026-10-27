@@ -25,7 +25,7 @@ const subtotal = days * baseDaily;
 const discount = Math.round(subtotal * pct);
 const total = subtotal - discount;
 const daily = Math.round(total / days);
-const state = { method: saved.method === "pickup" ? "pickup" : "delivery" };
+const state = { method: params.get("method") === "pickup" || saved.method === "pickup" ? "pickup" : "delivery" };
 
 function text(id, value) { qs(`#${id}`).textContent = value; }
 text("fact-tier", plans[tier].label);
@@ -70,7 +70,10 @@ for (const [id, value] of Object.entries(saved.fields || {})) {
   const field = qs(`#${id}`);
   if (field) field.value = value;
 }
-if (!saved.fields?.["time-slot"]) qs("#time-slot").value = state.method === "pickup" ? "12:00 – 15:00" : "18:00 – 20:00";
+const requestedTimeSlot = params.get("timeSlot");
+const validTimeSlots = Array.from(qs("#time-slot").options, (option) => option.value);
+if (requestedTimeSlot && validTimeSlots.includes(requestedTimeSlot)) qs("#time-slot").value = requestedTimeSlot;
+else if (!saved.fields?.["time-slot"]) qs("#time-slot").value = state.method === "pickup" ? "12:00 – 15:00" : "18:00 – 20:00";
 for (const promo of document.querySelectorAll(".promo-input")) promo.value = saved.promo || "";
 
 function setMethod(method) {
@@ -186,7 +189,7 @@ qs("#checkout-form").addEventListener("submit", (event) => {
       submitBtn.disabled = false;
       submitBtn.textContent = originalText;
       if (errorBox) {
-        errorBox.textContent = "Не удалось отправить заявку автоматически. Пожалуйста, попробуйте ещё раз или позвоните нам: +7 979 859 87 11";
+        errorBox.textContent = "Не удалось отправить заявку автоматически. Пожалуйста, попробуйте ещё раз или позвоните нам: +7 978 859 87 11";
         errorBox.hidden = false;
       }
     }
@@ -194,7 +197,7 @@ qs("#checkout-form").addEventListener("submit", (event) => {
     submitBtn.disabled = false;
     submitBtn.textContent = originalText;
     if (errorBox) {
-      errorBox.textContent = "Ошибка соединения. Пожалуйста, позвоните нам: +7 979 859 87 11";
+      errorBox.textContent = "Ошибка соединения. Пожалуйста, позвоните нам: +7 978 859 87 11";
       errorBox.hidden = false;
     }
   });

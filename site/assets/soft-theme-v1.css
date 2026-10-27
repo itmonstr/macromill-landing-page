@@ -42,9 +42,9 @@ body:has(.checkout-shell),
 .checkout-page h1,
 .checkout-page h2,
 .checkout-page h3 {
-  font-family: 'Nunito Sans', Manrope, sans-serif;
-  font-weight: 800;
-  letter-spacing: -.035em;
+  font-family: Cygre, Manrope, sans-serif;
+  font-weight: 500;
+  letter-spacing: -.025em;
 }
 
 /* Navigation and first screen */
@@ -106,22 +106,25 @@ body:has(.checkout-shell),
 }
 .mm-landing-v2 .ml-hero h1 em { color: #71900c; }
 .mm-landing-v2 .ml-hero-lead { max-width: 590px; color: #34483c; font-size: clamp(15px, 1.4vw, 18px); }
-.mm-landing-v2 .ml-hero-proof { gap: 10px; flex-wrap: wrap; }
+.mm-landing-v2 .ml-hero-proof { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; max-width: 690px; }
 .mm-landing-v2 .ml-hero-proof>div {
-  min-width: 134px;
-  padding: 13px 17px;
+  min-width: 0;
+  min-height: 88px;
+  justify-content: center;
+  padding: 17px 20px;
   border: 1px solid rgba(255,255,255,.85);
   border-radius: 18px;
   background: rgba(255,255,255,.82);
   box-shadow: 0 9px 25px rgba(18, 72, 47, .06);
 }
-.mm-landing-v2 .ml-hero-proof b { color: var(--soft-green); }
+.mm-landing-v2 .ml-hero-proof b { color: var(--soft-green); font-size: 19px; }
+.mm-landing-v2 .ml-hero-proof span { font-size: 12px; line-height: 1.35; }
 .mm-landing-v2 .ml-button,
 .mm-landing-v2 .ml-map-button,
 .mm-landing-v2 .ml-mobile-bar>a { border-radius: 999px; }
 .mm-landing-v2 .ml-button-primary,
 .mm-landing-v2 .ml-map-button { background: var(--soft-green); }
-.mm-landing-v2 .ml-button-primary { min-height: 56px; padding-inline: 30px; }
+.mm-landing-v2 .ml-button-primary { min-height: 64px; padding-inline: 36px; font-size: 16px; box-shadow: 0 13px 28px rgba(6,62,47,.24); }
 .mm-landing-v2 .ml-text-link { color: var(--soft-green); font-weight: 800; }
 
 /* Plan builder */
@@ -173,6 +176,7 @@ body:has(.checkout-shell),
 .mm-landing-v2 .ml-food-image-wrap { background: #f7f8f5; }
 .mm-landing-v2 .ml-food-replace { border-radius: 999px; background: var(--ml-leaf); }
 .mm-landing-v2 .ml-order-summary { padding: 22px 26px; background: #eef3d8; }
+.mm-landing-v2 .ml-summary-button { display: inline-flex!important; min-height: 60px; font-size: 16px; box-shadow: 0 13px 28px rgba(6,62,47,.24); }
 .mm-landing-v2 .ml-summary-discount { border-radius: 999px; background: var(--ml-lime); }
 .mm-landing-v2 .ml-swap-dialog { border-radius: 28px; background: #f7f8f5; }
 .mm-landing-v2 .ml-swap-option { border-radius: 16px; }
@@ -202,6 +206,7 @@ body:has(.checkout-shell),
 .mm-landing-v2 .ml-delivery-highlight { border-radius: 999px; padding: 5px 11px; background: var(--ml-lime); }
 .mm-landing-v2 .ml-route-map,
 .mm-landing-v2 .ml-pickup-map { border-radius: 22px; }
+.mm-landing-v2 .ml-pickup-city-label { position: absolute; z-index: 2; top: 14px; left: 14px; padding: 6px 10px; border-radius: 999px; background: rgba(255,255,255,.92); color: var(--soft-green); font-size: 11px; font-weight: 800; box-shadow: 0 5px 15px rgba(16,36,29,.08); }
 .mm-landing-v2 .ml-delivery-note { border-radius: 22px; background: var(--ml-lime); }
 .mm-landing-v2 .ml-about { gap: clamp(35px, 6vw, 90px); }
 .mm-landing-v2 .ml-about-image { height: 430px; border-radius: 30px; box-shadow: var(--soft-shadow); }
@@ -241,9 +246,11 @@ body:has(.checkout-shell) { background: #f4f6f0; color: var(--soft-ink); }
   .mm-landing-v2 .ml-hero h1 { font-size: clamp(36px, 9vw, 46px); }
   .mm-landing-v2 .ml-hero-lead { font-size: 15px; line-height: 1.6; }
   .mm-landing-v2 .ml-hero-proof { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 6px; margin: 22px 0; }
-  .mm-landing-v2 .ml-hero-proof>div { min-width: 0; padding: 10px 8px; border-radius: 13px; }
-  .mm-landing-v2 .ml-hero-proof b { font-size: 11px; }
-  .mm-landing-v2 .ml-hero-proof span { font-size: 9px; line-height: 1.2; }
+  .mm-landing-v2 .ml-hero-proof>div { min-width: 0; min-height: 76px; padding: 12px 9px; border-radius: 18px; }
+  .mm-landing-v2 .ml-hero-proof b { font-size: 13px; }
+  .mm-landing-v2 .ml-hero-proof span { font-size: 10px; line-height: 1.25; }
+  .mm-landing-v2 .ml-hero-actions .ml-button-primary { width: 100%; min-height: 62px; font-size: 15px; }
+  .mm-landing-v2 .ml-summary-button { display: inline-flex!important; }
   .mm-landing-v2 .ml-section { padding: 68px 16px; }
   .mm-landing-v2 .ml-section-heading { margin-bottom: 28px; }
   .mm-landing-v2 .ml-section-heading h2 { font-size: 34px; }

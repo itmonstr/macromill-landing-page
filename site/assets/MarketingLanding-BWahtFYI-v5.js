@@ -10,12 +10,10 @@ import {
   v as affordableGoals,
 } from "./ration-Dutl8qkK-v5.js";
 
-import DishPicker from './DishPicker-v2.js';
-
 const React = interop(requireReact(), 1);
 const h = React.createElement;
 const base = "/macromill-landing-page/";
-const phone = "+79798598711";
+const phone = "+79788598711";
 const days = [1, 3, 5, 7, 14, 30];
 const weekdays = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
 const rub = (value) => `${Number(value).toLocaleString("ru-RU")} ₽`;
@@ -233,9 +231,9 @@ function Landing() {
     h("header", { className: "ml-header" },
       h("a", { className: "ml-brand", href: "#top", "aria-label": "МакроМилл — на главную" }, h("img", { src: `${base}logo.png`, alt: "МакроМилл" })),
       h("nav", { className: "ml-nav", "aria-label": "Главное меню" },
-        h("a", { href: "#menu" }, "Рационы"), h("a", { href: "#dishes" }, "Блюда"), h("a", { href: "#delivery" }, "Доставка"),
+        h("a", { href: "#menu" }, "Рационы"), h("a", { href: "#delivery" }, "Доставка"),
         h("a", { href: "#about" }, "О нас"), h("a", { href: "#faq" }, "Вопросы")),
-      h("a", { className: "ml-header-phone", href: `tel:${phone}` }, "+7 979 859 87 11")),
+      h("a", { className: "ml-header-phone", href: `tel:${phone}` }, "+7 978 859 87 11")),
 
     h("section", { className: "ml-hero", id: "top", style: { "--ml-hero-poster": `url('${base}video/macromill-hero-poster.jpg')` } },
       h("video", { className: "ml-hero-video", autoPlay: true, muted: true, loop: true, playsInline: true, preload: "metadata", poster: `${base}video/macromill-hero-poster.jpg`, "aria-hidden": "true" },
@@ -259,8 +257,8 @@ function Landing() {
           h("div", { className: "ml-control-block" },
             h("div", { className: "ml-control-label" }, h("span", null, "01"), " Линейка питания"),
             h("div", { className: "ml-line-switch", role: "group", "aria-label": "Линейка питания" },
-              h("button", { type: "button", className: tier === "affordable" ? "selected" : "", "aria-pressed": tier === "affordable", onClick: () => changeTier("affordable") }, h("b", null, "На каждый день"), h("small", null, "Новая линейка блюд")),
-              h("button", { type: "button", className: tier === "premium" ? "selected" : "", "aria-pressed": tier === "premium", onClick: () => changeTier("premium") }, h("b", null, "Премиум"), h("small", null, "Основное меню")))),
+              h("button", { type: "button", className: tier === "affordable" ? "selected" : "", "aria-pressed": tier === "affordable", onClick: () => changeTier("affordable") }, h("b", null, "На каждый день")),
+              h("button", { type: "button", className: tier === "premium" ? "selected" : "", "aria-pressed": tier === "premium", onClick: () => changeTier("premium") }, h("b", null, "Премиум")))),
           h("div", { className: "ml-control-block" },
             h("div", { className: "ml-control-label" }, h("span", null, "02"), " Цель и калорийность"),
             h("div", { className: "ml-goal-grid" }, goals.map(([name, description, , calories]) =>
@@ -292,8 +290,6 @@ function Landing() {
           h("p", null, `Питание на весь срок: ${rub(total)}${discountAmount ? `, экономия ${rub(discountAmount)}` : ""}.`),
           h("a", { className: "ml-button ml-button-primary ml-summary-button", href: checkout }, "Оформить заказ →")))),
 
-    h(DishPicker),
-
     h("section", { className: "ml-section ml-delivery", id: "delivery" },
       h("div", { className: "ml-section-heading ml-delivery-heading" },
         h("span", { className: "ml-eyebrow" }, "От заказа до стола"),
@@ -310,13 +306,13 @@ function Landing() {
               h("div", { className: "ml-delivery-time-item" }, h("span", null, "Заказ до 14:00"), h("strong", null, "Обычно на следующий день")),
               h("div", { className: "ml-delivery-time-item" }, h("span", null, "После 14:00"), h("strong", null, "Обычно через день")))),
           h("div", { className: "ml-route-map", "aria-label": "Доставка по Севастополю" },
-            h("span", { className: "ml-map-label" }, "Севастополь"),
+            h("span", { className: "ml-map-label" }, "Севастополь · зона доставки"),
             h("svg", { viewBox: "0 0 600 170", role: "presentation", "aria-hidden": true },
               h("path", { className: "ml-map-road", d: "M-10 34 C80 78 112 20 203 52 S325 112 402 76 512 44 620 92" }),
               h("path", { className: "ml-map-road ml-map-road-secondary", d: "M32 174 C102 132 124 112 171 104 S256 90 300 28 408 3 460 37 534 128 595 151" }),
               h("path", { className: "ml-map-route", d: "M28 137 C96 110 131 122 190 98 S295 60 354 86 451 118 500 76 551 59 580 48" }),
               h("circle", { cx: 28, cy: 137, r: 8, className: "ml-map-dot" }), h("circle", { cx: 580, cy: 48, r: 10, className: "ml-map-pin-dot" })),
-            h("span", { className: "ml-map-caption" }, "Готовим и привозим к вам")),
+            h("span", { className: "ml-map-caption" }, "Схема бесплатной доставки по Севастополю")),
           h("div", { className: "ml-delivery-card-foot" }, "Точную дату и время согласуем после оформления")),
         h("article", { className: "ml-delivery-card" },
           h("div", { className: "ml-delivery-card-heading" },
@@ -325,10 +321,11 @@ function Landing() {
           h("div", { className: "ml-delivery-details" },
             h("p", { className: "ml-delivery-description" }, "Выберите удобный интервал. Менеджер подтвердит время выдачи."),
             h("div", { className: "ml-pickup-slots", "aria-label": "Интервалы самовывоза" },
-              ["09:00–12:00", "12:00–15:00", "15:00–18:00", "18:00–20:00", "20:00–22:00"].map((slot) => h("span", { key: slot }, slot)))),
+              ["09:00 – 12:00", "12:00 – 15:00", "15:00 – 18:00", "18:00 – 20:00", "20:00 – 22:00"].map((slot) => h("a", { key: slot, href: `${checkout}&method=pickup&timeSlot=${encodeURIComponent(slot)}` }, slot)))),
           h("div", { className: "ml-pickup-map", "aria-label": "Схема расположения пункта самовывоза" },
             h("span", { className: "ml-pickup-road ml-pickup-road-one" }), h("span", { className: "ml-pickup-road ml-pickup-road-two" }),
             h("span", { className: "ml-pickup-road ml-pickup-road-three" }), h("span", { className: "ml-pickup-park" }),
+            h("span", { className: "ml-pickup-city-label" }, "Севастополь · пункт самовывоза"),
             h("span", { className: "ml-pickup-map-label" }, "пр. Октябрьской Революции"),
             h("span", { className: "ml-pickup-pin" }, h("svg", { viewBox: "0 0 24 24", "aria-hidden": true }, h("path", { d: "M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" }), h("circle", { cx: 12, cy: 10, r: 2.5, fill: "white" })))),
           h("a", { className: "ml-map-button", href: "https://yandex.ru/maps/?text=Севастополь%2C%20проспект%20Октябрьской%20Революции%2C%2061", target: "_blank", rel: "noreferrer" }, "Открыть на карте →"))),
@@ -349,12 +346,12 @@ function Landing() {
         h("aside", { className: "ml-help-card" }, h("h3", null, "Поможем выбрать"),
           h("p", null, "Расскажите, что важно для вас, — менеджер подскажет, с чего начать."),
           h("a", { className: "ml-button ml-button-dark", href: "https://t.me/macromillman" }, "Написать нам →"),
-          h("a", { className: "ml-help-phone", href: `tel:${phone}` }, "+7 979 859 87 11")))),
+          h("a", { className: "ml-help-phone", href: `tel:${phone}` }, "+7 978 859 87 11")))),
 
     h("footer", { className: "ml-footer" },
       h("div", { className: "ml-footer-top" }, h("img", { src: `${base}logo.png`, alt: "МакроМилл" }),
         h("p", null, "Готовые рационы с доставкой по Севастополю"),
-        h("div", { className: "ml-footer-contacts" }, h("a", { href: `tel:${phone}` }, "+7 979 859 87 11"), h("a", { href: "mailto:Kozhemyachenko.aleksej@mail.ru" }, "Kozhemyachenko.aleksej@mail.ru"))),
+        h("div", { className: "ml-footer-contacts" }, h("a", { href: `tel:${phone}` }, "+7 978 859 87 11"), h("a", { href: "mailto:Kozhemyachenko.aleksej@mail.ru" }, "Kozhemyachenko.aleksej@mail.ru"))),
       h("div", { className: "ml-footer-bottom" }, h("span", null, `© ${new Date().getFullYear()} МакроМилл`),
         h("div", null, h("a", { href: `${base}oferta.html` }, "Публичная оферта"), h("a", { href: `${base}agreement.html` }, "Условия использования"), h("a", { href: `${base}about.html` }, "Реквизиты и контакты")))),
     h("div", { className: "ml-mobile-bar" }, h("div", null, h("small", null, "Тариф в день"), h("b", null, rub(daily))), h("a", { href: checkout }, "Оформить заказ →")));
