@@ -207,14 +207,14 @@ body:has(.checkout-shell),
 .mm-landing-v2 .ml-route-map,
 .mm-landing-v2 .ml-pickup-map { border-radius: 22px; }
 .mm-landing-v2 .ml-pickup-city-label { position: absolute; z-index: 2; top: 14px; left: 14px; padding: 6px 10px; border-radius: 999px; background: rgba(255,255,255,.92); color: var(--soft-green); font-size: 11px; font-weight: 800; box-shadow: 0 5px 15px rgba(16,36,29,.08); }
-.mm-landing-v2 .ml-service-animation { position: relative; min-height: 190px; margin-top: auto; overflow: hidden; border: 1px solid #e1e8dc; border-radius: 22px; background: linear-gradient(135deg, #f8faef 0%, #eef4cf 100%); }
+.mm-landing-v2 .ml-service-animation { position: relative; min-height: 215px; margin-top: auto; overflow: hidden; border: 1px solid #e1e8dc; border-radius: 22px; background: linear-gradient(135deg, #f8faef 0%, #eef4cf 100%); }
 .mm-landing-v2 .ml-service-animation::before { content: ""; position: absolute; width: 190px; height: 190px; right: -75px; top: -95px; border-radius: 50%; background: rgba(200,220,73,.2); box-shadow: 0 0 0 34px rgba(200,220,73,.09); }
 .mm-landing-v2 .ml-service-animation-title { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 3px; padding: 19px 20px 0; }
 .mm-landing-v2 .ml-service-animation-title b { color: var(--soft-green); font-family: Cygre, Manrope, sans-serif; font-size: 20px; font-weight: 500; }
 .mm-landing-v2 .ml-service-animation-title span { color: #66766e; font-size: 11px; }
-.mm-landing-v2 .ml-service-track { position: absolute; right: 24px; bottom: 20px; left: 24px; height: 92px; }
-.mm-landing-v2 .ml-service-line { position: absolute; top: 72px; right: 5%; left: 5%; height: 3px; border-radius: 999px; background: #cbd8a1; }
-.mm-landing-v2 .ml-moving-order { position: absolute; z-index: 3; top: 53px; left: 5%; width: 38px; height: 28px; color: var(--soft-green); filter: drop-shadow(0 5px 5px rgba(6,62,47,.2)); animation: ml-order-travel 4.8s ease-in-out infinite; }
+.mm-landing-v2 .ml-service-track { position: absolute; right: 24px; bottom: 14px; left: 24px; height: 110px; }
+.mm-landing-v2 .ml-service-line { position: absolute; top: 93px; right: 5%; left: 5%; height: 3px; border-radius: 999px; background: #cbd8a1; }
+.mm-landing-v2 .ml-moving-order { position: absolute; z-index: 3; top: 73px; left: 5%; width: 38px; height: 28px; color: var(--soft-green); filter: drop-shadow(0 5px 5px rgba(6,62,47,.2)); animation: ml-order-travel 4.8s ease-in-out infinite; }
 .mm-landing-v2 .ml-moving-order svg { display: block; width: 100%; height: 100%; overflow: visible; fill: var(--ml-leaf); stroke: var(--soft-green); stroke-width: 1.35; stroke-linejoin: round; }
 .mm-landing-v2 .ml-service-stop { position: absolute; top: 0; display: flex; flex-direction: column; align-items: center; gap: 7px; width: 90px; text-align: center; }
 .mm-landing-v2 .ml-service-stop-one { left: 0; }
@@ -287,10 +287,10 @@ body:has(.checkout-shell) { background: #f4f6f0; color: var(--soft-ink); }
   .mm-landing-v2 .ml-builder-controls, .mm-landing-v2 .ml-menu-preview { padding: 20px; border-radius: 24px; }
   .mm-landing-v2 .ml-goal-option { padding: 15px 12px; }
   .mm-landing-v2 .ml-delivery-card { padding: 20px; border-radius: 24px; }
-  .mm-landing-v2 .ml-service-animation { min-height: 174px; border-radius: 18px; }
+  .mm-landing-v2 .ml-service-animation { min-height: 205px; border-radius: 18px; }
   .mm-landing-v2 .ml-service-animation-title { padding: 16px 16px 0; }
   .mm-landing-v2 .ml-service-animation-title b,.mm-landing-v2 .ml-ready-copy b { font-size: 17px; }
-  .mm-landing-v2 .ml-service-track { right: 12px; bottom: 13px; left: 12px; }
+  .mm-landing-v2 .ml-service-track { right: 12px; bottom: 10px; left: 12px; height: 108px; }
   .mm-landing-v2 .ml-ready-animation { grid-template-columns: 58px 1fr; gap: 11px 14px; padding: 18px; }
   .mm-landing-v2 .ml-ready-badge { width: 56px; height: 56px; border-radius: 18px; }
   .mm-landing-v2 .ml-about-image { height: 280px; border-radius: 23px; }
