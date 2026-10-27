@@ -10,6 +10,8 @@ import {
   v as affordableGoals,
 } from "./ration-Dutl8qkK-v5.js";
 
+import DishPicker from './DishPicker-v2.js';
+
 const React = interop(requireReact(), 1);
 const h = React.createElement;
 const base = "/macromill-landing-page/";
@@ -231,7 +233,7 @@ function Landing() {
     h("header", { className: "ml-header" },
       h("a", { className: "ml-brand", href: "#top", "aria-label": "МакроМилл — на главную" }, h("img", { src: `${base}logo.png`, alt: "МакроМилл" })),
       h("nav", { className: "ml-nav", "aria-label": "Главное меню" },
-        h("a", { href: "#menu" }, "Рационы"), h("a", { href: "#delivery" }, "Доставка"),
+        h("a", { href: "#menu" }, "Рационы"), h("a", { href: "#dishes" }, "Блюда"), h("a", { href: "#delivery" }, "Доставка"),
         h("a", { href: "#about" }, "О нас"), h("a", { href: "#faq" }, "Вопросы")),
       h("a", { className: "ml-header-phone", href: `tel:${phone}` }, "+7 978 859 87 11")),
 
@@ -289,6 +291,8 @@ function Landing() {
           h("div", { className: "ml-summary-batch" }, h("span", null, "Выбранный срок"), h("b", null, `${duration} ${dayWord(duration)}`)),
           h("p", null, `Питание на весь срок: ${rub(total)}${discountAmount ? `, экономия ${rub(discountAmount)}` : ""}.`),
           h("a", { className: "ml-button ml-button-primary ml-summary-button", href: checkout }, "Оформить заказ →")))),
+
+    h(DishPicker),
 
     h("section", { className: "ml-section ml-delivery", id: "delivery" },
       h("div", { className: "ml-section-heading ml-delivery-heading" },
