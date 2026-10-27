@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>MacroMill — CRM лендинга</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="analytics.css?v=3">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <span class="eyebrow">MACROMILL · CRM</span>
+      <h1>CRM лендинга</h1>
+      <p>Рабочие заявки и аналитика поведения посетителей macromill.ru.</p>
+    </div>
+    <div class="actions">
+      <a class="button secondary" href="/" target="_blank" rel="noopener">Открыть лендинг</a>
+      <button class="button" id="refresh">Обновить</button>
+    </div>
+  </header>
+
+  <main>
+    <div id="notice" class="notice">Загрузка данных…</div>
+
+    <section class="tracking-guide">
+      <div class="guide-heading">
+        <div><span class="eyebrow">КАК РАБОТАЕТ ОТСЛЕЖИВАНИЕ</span><h2>Памятка по аналитике</h2></div>
+        <span class="muted">Рабочий контур</span>
+      </div>
+      <div class="guide-flow">
+        <article><strong>1. Устройство</strong><span>Браузеру присваивается постоянный анонимный ID</span></article>
+        <article><strong>2. Сессия</strong><span>Каждый новый визит записывается отдельно и связывается с устройством</span></article>
+        <article><strong>3. Действия</strong><span>Переходы по этапам сохраняются с датой, источником и конфигурацией</span></article>
+        <article><strong>4. Результат</strong><span>После заявки устройство связывается с клиентом; бездействие более 2 минут считается отказом</span></article>
+      </div>
+      <div id="tracking-stages" class="tracking-stages"></div>
+    </section>
+
+    <section id="summary" class="summary"></section>
+
+    <section class="panel order-type-panel">
+      <div class="panel-heading">
+        <div><span class="eyebrow">ТИП ЗАКАЗА</span><h2>Что выбирают посетители</h2></div>
+        <span class="muted">Нажмите вариант, чтобы отфильтровать воронку и график</span>
+      </div>
+      <div id="order-type-filters" class="order-type-filters"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading">
+        <div><span class="eyebrow">АНАЛИТИКА</span><h2>Воронка</h2></div>
+        <span class="muted" id="generated"></span>
+      </div>
+      <div id="funnel" class="funnel"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading">
+        <div><span class="eyebrow">ДИНАМИКА</span><h2>Активность по дням</h2></div>
+        <span class="muted" id="activity-caption">Уникальные сессии</span>
+      </div>
+      <div id="stage-filters" class="stage-filters"></div>
+      <div id="activity-kpis" class="activity-kpis"></div>
+      <div id="activity-insight" class="activity-insight"></div>
+      <div id="activity-chart" class="activity-chart"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading">
+        <div><span class="eyebrow">УСТРОЙСТВА</span><h2>Сводная статистика</h2></div>
+        <span class="muted">Одно устройство = один анонимный ID браузера</span>
+      </div>
+      <div id="device-summary" class="device-summary"></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Устройство</th><th>Тип</th><th>Сессии</th><th>Последняя активность</th><th>Последний этап</th><th>Источник</th><th></th></tr></thead>
+          <tbody id="devices"></tbody>
+        </table>
+      </div>
+      <div id="device-details" class="device-details" hidden></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading">
+        <div><span class="eyebrow">ПУНКТ 1</span><h2>Заявки</h2></div>
+        <span class="pill">MACROMILL.RU</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Дата</th><th>Клиент</th><th>Заказ</th><th>Получение</th><th>Сумма</th><th>Статус</th></tr></thead>
+          <tbody id="leads"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading">
+        <div><span class="eyebrow">ПУНКТ 2</span><h2>Брошенные и активные оформления</h2></div>
+        <span class="muted">Сессия считается брошенной через 2 минуты бездействия</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Последняя активность</th><th>Устройство</th><th>Статус</th><th>Последний этап</th><th>Конфигурация</th><th>Источник</th></tr></thead>
+          <tbody id="sessions"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js?v=5" defer></script>
+</body>
+</html>

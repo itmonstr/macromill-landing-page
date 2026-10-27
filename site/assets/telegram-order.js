@@ -75,15 +75,21 @@ export async function sendOrderToTelegram(order) {
     const res = await fetch(EDGE_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text }),
+      body: JSON.stringify({
+        text,
+        session_id: window.mmAnalytics?.sessionId,
+        visitor_id: window.mmAnalytics?.visitorId,
+        order,
+      }),
     });
     if (res.ok) {
       const data = await res.json();
-      if (data.ok) return { ok: true, via: 'edge' };
+      if (data.ok) return { ok: true, via: 'edge', leadId: data.lead_id };
       throw new Error(data.error || 'Ошибка серверной отправки');
     }
     throw new Error(`Сервер вернул HTTP ${res.status}`);
   } catch (e) {
+    window.mmAnalytics?.track('submit_failed');
     console.error('Telegram server endpoint failed:', e);
     return { ok: false, error: String(e) };
   }

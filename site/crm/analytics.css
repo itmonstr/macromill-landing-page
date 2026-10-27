@@ -1,0 +1,55 @@
+.tracking-guide {
+  margin-bottom: 18px;
+  padding: 22px 24px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 12px 35px #17382c0b;
+}
+.guide-heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; }
+.guide-heading h2 { margin: 4px 0 0; font-size: 26px; }
+.guide-flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 18px 0; }
+.guide-flow article { position: relative; padding: 15px; border: 1px solid var(--line); border-radius: 15px; background: #f6f9f3; }
+.guide-flow article:not(:last-child)::after { content: "→"; position: absolute; right: -10px; top: 50%; z-index: 1; color: #789329; font-weight: 900; }
+.guide-flow strong, .guide-flow span { display: block; }
+.guide-flow span { margin-top: 6px; color: var(--muted); font-size: 12px; line-height: 1.4; }
+.tracking-stages { display: flex; gap: 7px; overflow-x: auto; padding-bottom: 3px; }
+.tracking-stages span { display: inline-flex; align-items: center; gap: 7px; min-width: max-content; padding: 7px 10px; border-radius: 999px; background: #edf3d1; color: #526714; font-size: 11px; font-weight: 700; }
+.tracking-stages b { display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--green); color: white; }
+.stage-filters { display: flex; flex-wrap: wrap; gap: 7px; padding: 2px 0 14px; }
+.stage-filter { border: 1px solid var(--line); border-radius: 999px; padding: 8px 12px; background: white; color: #315146; font-size: 11px; font-weight: 800; white-space: nowrap; cursor: pointer; }
+.stage-filter.active { border-color: var(--green); background: var(--green); color: white; }
+.order-type-filters { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.order-type-card { padding: 16px; border: 1px solid var(--line); border-radius: 16px; background: #f8faf6; color: #183229; text-align: left; cursor: pointer; }
+.order-type-card span, .order-type-card strong, .order-type-card small { display: block; }
+.order-type-card span { color: var(--muted); font-size: 12px; font-weight: 800; }
+.order-type-card strong { margin: 6px 0; font-size: 28px; }
+.order-type-card small { color: var(--muted); }
+.order-type-card.active { border-color: var(--green); background: var(--green); color: white; }
+.order-type-card.active span, .order-type-card.active small { color: #dbe8e1; }
+.activity-chart { display: flex; align-items: stretch; gap: 8px; min-height: 230px; overflow-x: auto; padding: 8px 2px 4px; }
+.day-column { display: grid; grid-template-rows: 22px 170px 22px; gap: 5px; min-width: 42px; flex: 1; text-align: center; }
+.day-value { font-size: 12px; font-weight: 900; }
+.day-track { position: relative; overflow: hidden; border-radius: 9px; background: linear-gradient(to top, #edf1ec 1px, transparent 1px); background-size: 100% 25%; }
+.activity-kpis { display: grid; grid-template-columns: repeat(4, minmax(120px, 190px)); gap: 9px; margin-bottom: 10px; }
+.activity-kpis .metric { padding: 12px 14px; border-radius: 14px; box-shadow: none; }
+.activity-kpis .metric strong { margin-top: 4px; font-size: 24px; }
+.activity-insight { margin-bottom: 8px; padding: 10px 13px; border-radius: 12px; background: #f1f5e4; color: #526714; font-size: 12px; }
+.day-bar { position: absolute; bottom: 0; border-radius: 8px 8px 3px 3px; transition: height .25s ease; }
+.day-bar.current { right: 5px; left: 52%; background: linear-gradient(180deg, var(--lime), #6e8d24); }
+.day-bar.previous { right: 52%; left: 5px; background: #cbd7d0; }
+.day-track .day-bar.current:only-child { right: 7px; left: 7px; }
+.day-value small { color: var(--muted); font-weight: 600; }
+.day-label { color: var(--muted); font-size: 10px; }
+@media (max-width: 900px) {
+  .guide-flow { grid-template-columns: repeat(2, 1fr); }
+  .guide-flow article::after { display: none; }
+  .activity-chart { min-width: 650px; }
+  .order-type-filters { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 520px) {
+  .tracking-guide { padding: 17px; }
+  .guide-flow { grid-template-columns: 1fr; }
+  .activity-chart { min-width: 620px; }
+  .activity-kpis { grid-template-columns: repeat(2, 1fr); }
+}
