@@ -357,8 +357,7 @@ function Landing() {
         h("p", null, "Готовые рационы с доставкой по Севастополю"),
         h("div", { className: "ml-footer-contacts" }, h("a", { href: `tel:${phone}` }, "+7 978 859 87 11"), h("a", { href: "mailto:Kozhemyachenko.aleksej@mail.ru" }, "Kozhemyachenko.aleksej@mail.ru"))),
       h("div", { className: "ml-footer-bottom" }, h("span", null, `© ${new Date().getFullYear()} МакроМилл`),
-        h("div", null, h("a", { href: `${base}oferta.html` }, "Публичная оферта"), h("a", { href: `${base}agreement.html` }, "Условия использования"), h("a", { href: `${base}about.html` }, "Реквизиты и контакты")))),
-    h("div", { className: "ml-mobile-bar" }, h("div", null, h("small", null, "Тариф в день"), h("b", null, rub(daily))), h("a", { href: checkout }, "Оформить заказ →")));
+        h("div", null, h("a", { href: `${base}oferta.html` }, "Публичная оферта"), h("a", { href: `${base}agreement.html` }, "Условия использования"), h("a", { href: `${base}about.html` }, "Реквизиты и контакты")))));
 }
 
 export default Landing;
